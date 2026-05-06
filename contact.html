@@ -2,116 +2,123 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | Yuva Rejuvenation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --gold:#D4AF37;
-  --black:#0a0a0a;
+--gold:#D4AF37;
+--black:#050505;
+--gray:#111;
+--white:#f5f5f5;
 }
-
-*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:'Montserrat',sans-serif;
-  background:var(--black);
-  color:#fff;
+margin:0;
+font-family:Montserrat;
+background:var(--black);
+color:white;
 }
 
-/* NAV */
+h1,h2{font-family:"Playfair Display"; color:var(--gold);}
+
+/* HEADER */
 header{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 10%;
-  background:#000;
+text-align:center;
+padding:25px;
+border-bottom:1px solid #222;
+background:#000;
 }
 
-nav a{
-  color:#fff;
-  margin:0 10px;
-  text-decoration:none;
+/* CONTAINER */
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
 }
 
-nav a:hover{color:var(--gold);}
-
-/* SECTION */
-.contact{
-  padding:80px 10%;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
+.card{
+background:#111;
+padding:20px;
+border-radius:10px;
+border:1px solid #222;
+margin:15px 0;
 }
 
-/* LEFT INFO */
-.contact-info h2{
-  font-size:40px;
-  margin-bottom:20px;
-}
-
-.contact-info p{
-  color:#ccc;
-  margin-bottom:15px;
-}
-
-.contact-box{
-  margin-top:20px;
-}
-
-.contact-box div{
-  margin-bottom:10px;
-}
-
-/* FORM */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-input,textarea{
-  padding:12px;
-  border:none;
-  outline:none;
-}
-
-button{
-  padding:12px;
-  background:var(--gold);
-  border:none;
-  cursor:pointer;
+/* INPUT */
+input,select,textarea{
+width:100%;
+padding:12px;
+margin:8px 0;
+background:#1a1a1a;
+border:none;
+color:white;
+border-radius:6px;
 }
 
 /* BUTTON */
-.btn{
-  display:inline-block;
-  padding:12px 25px;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  text-decoration:none;
-  margin-top:20px;
+button{
+width:100%;
+padding:12px;
+background:var(--gold);
+border:none;
+color:black;
+font-weight:bold;
+border-radius:6px;
+cursor:pointer;
 }
 
-.btn:hover{
-  background:var(--gold);
-  color:#000;
+button:hover{background:#b8962f}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
 }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:20px;
-  background:#000;
-  margin-top:40px;
+/* MAP */
+iframe{
+width:100%;
+height:250px;
+border-radius:10px;
+border:0;
 }
 
-/* MOBILE */
-@media(max-width:768px){
-  .contact{
-    grid-template-columns:1fr;
-  }
+/* CHAT */
+.chat{
+position:fixed;
+bottom:20px;
+right:20px;
+width:280px;
+background:#111;
+border:1px solid var(--gold);
+border-radius:10px;
+overflow:hidden;
+}
+
+.chat-header{
+background:var(--gold);
+color:black;
+padding:10px;
+font-weight:bold;
+}
+
+.chat-box{
+height:180px;
+overflow:auto;
+padding:10px;
+font-size:13px;
+}
+
+.chat-input{
+display:flex;
+}
+
+.chat-input input{
+flex:1;
 }
 </style>
 </head>
@@ -119,54 +126,166 @@ footer{
 <body>
 
 <header>
-<h2 style="color:#D4AF37;">YUVA</h2>
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-</nav>
+<h1>Contact & Appointment</h1>
+<p>Yuva Rejuvenation Clinic</p>
 </header>
 
-<section class="contact">
+<div class="container">
 
-<!-- LEFT -->
-<div class="contact-info">
-<h2>Get In Touch</h2>
+<!-- CONTACT FORM -->
+<div class="card">
+<h2>📞 Book Appointment</h2>
 
-<p>We are here to help you achieve your beauty goals with advanced treatments and expert care.</p>
+<div class="grid">
 
-<div class="contact-box">
-<div>📍 Aliganj, Lucknow</div>
-<div>📞 +91 7388868708</div>
-<div>📧 vishukohri@gmail.com</div>
-</div>
-
-<a href="https://wa.me/917388868708" class="btn">Chat on WhatsApp</a>
-</div>
-
-<!-- RIGHT FORM -->
 <div>
-<h2>Book Appointment</h2>
+<input id="name" placeholder="Full Name">
+<input id="phone" placeholder="Phone Number">
+<input id="email" placeholder="Email">
+</div>
 
-<form action="https://formspree.io/f/YOUR-ID" method="POST">
+<div>
+<input type="date" id="date">
 
-<input type="text" name="name" placeholder="Full Name" required>
-<input type="tel" name="phone" placeholder="Mobile Number" required>
-<input type="email" name="email" placeholder="Email Address" required>
+<select id="slot">
+<option>10:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>04:00 PM</option>
+<option>06:00 PM</option>
+</select>
 
-<textarea name="message" placeholder="Your Message"></textarea>
-
-<button type="submit">Send Request</button>
-
-</form>
+<textarea id="msg" placeholder="Your Message"></textarea>
+</div>
 
 </div>
 
-</section>
+<button onclick="book()">📅 Submit Booking</button>
+<button onclick="pay()">💳 Pay Now</button>
+</div>
 
-<footer>
-<p>© 2026 Yuva Rejuvenation</p>
-</footer>
+<!-- MAP -->
+<div class="card">
+<h2>📍 Our Location</h2>
+<iframe src="https://maps.google.com/maps?q=lucknow&t=&z=13&output=embed"></iframe>
+</div>
+
+<!-- ADMIN -->
+<div class="card">
+<h2>📊 Admin Panel</h2>
+
+<input id="pass" placeholder="Admin Password">
+<button onclick="login()">Login</button>
+
+<div id="admin" style="display:none;">
+<h3>All Bookings</h3>
+<div id="list"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- CHATBOT -->
+<div class="chat">
+<div class="chat-header">🤖 AI Assistant</div>
+
+<div class="chat-box" id="chatBox"></div>
+
+<div class="chat-input">
+<input id="chatInput">
+<button onclick="chat()">Send</button>
+</div>
+</div>
+
+<script>
+
+// ================= BOOKING =================
+function book(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let email=document.getElementById("email").value;
+let date=document.getElementById("date").value;
+let slot=document.getElementById("slot").value;
+
+if(!name||!phone||!date){
+alert("Fill required fields");
+return;
+}
+
+let data=JSON.parse(localStorage.getItem("bookings")||"[]");
+
+// SLOT BLOCK
+let exists=data.find(b=>b.date===date && b.slot===slot);
+if(exists){
+alert("❌ Slot already booked");
+return;
+}
+
+data.push({name,phone,email,date,slot});
+localStorage.setItem("bookings",JSON.stringify(data));
+
+alert("✅ Booking Successful");
+loadAdmin();
+}
+
+// ================= PAYMENT =================
+function pay(){
+window.open("https://rzp.io/","_blank");
+}
+
+// ================= ADMIN =================
+function login(){
+let pass=document.getElementById("pass").value;
+
+if(pass==="admin123"){
+document.getElementById("admin").style.display="block";
+loadAdmin();
+}else{
+alert("Wrong Password");
+}
+}
+
+function loadAdmin(){
+let data=JSON.parse(localStorage.getItem("bookings")||"[]");
+let html="";
+
+data.forEach((b,i)=>{
+html+=`<p>${i+1}. ${b.name} | ${b.phone} | ${b.date} | ${b.slot}</p>`;
+});
+
+document.getElementById("list").innerHTML=html;
+}
+
+// ================= CHATBOT =================
+function chat(){
+
+let input=document.getElementById("chatInput");
+let text=input.value;
+if(!text) return;
+
+let box=document.getElementById("chatBox");
+
+box.innerHTML+=`<div><b>You:</b> ${text}</div>`;
+
+let reply="";
+
+if(text.includes("price")){
+reply="💰 Starts ₹999";
+}
+else if(text.includes("book")){
+reply="📅 Use booking form";
+}
+else{
+reply="🤖 AI: Connect OpenAI API for smart responses";
+}
+
+box.innerHTML+=`<div><b>AI:</b> ${reply}</div>`;
+input.value="";
+}
+
+</script>
 
 </body>
 </html>
