@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Yuva Rejuvenation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#D4AF37;
+  --black:#0a0a0a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--black);
+  color:#fff;
+}
+
+/* NAV */
+header{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 10%;
+  background:#000;
+}
+
+nav a{
+  color:#fff;
+  margin:0 10px;
+  text-decoration:none;
+}
+
+nav a:hover{color:var(--gold);}
+
+/* SECTION */
+.contact{
+  padding:80px 10%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+}
+
+/* LEFT INFO */
+.contact-info h2{
+  font-size:40px;
+  margin-bottom:20px;
+}
+
+.contact-info p{
+  color:#ccc;
+  margin-bottom:15px;
+}
+
+.contact-box{
+  margin-top:20px;
+}
+
+.contact-box div{
+  margin-bottom:10px;
+}
+
+/* FORM */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+input,textarea{
+  padding:12px;
+  border:none;
+  outline:none;
+}
+
+button{
+  padding:12px;
+  background:var(--gold);
+  border:none;
+  cursor:pointer;
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  padding:12px 25px;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  text-decoration:none;
+  margin-top:20px;
+}
+
+.btn:hover{
+  background:var(--gold);
+  color:#000;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#000;
+  margin-top:40px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .contact{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2 style="color:#D4AF37;">YUVA</h2>
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+
+<section class="contact">
+
+<!-- LEFT -->
+<div class="contact-info">
+<h2>Get In Touch</h2>
+
+<p>We are here to help you achieve your beauty goals with advanced treatments and expert care.</p>
+
+<div class="contact-box">
+<div>📍 Aliganj, Lucknow</div>
+<div>📞 +91 7388868708</div>
+<div>📧 vishukohri@gmail.com</div>
+</div>
+
+<a href="https://wa.me/917388868708" class="btn">Chat on WhatsApp</a>
+</div>
+
+<!-- RIGHT FORM -->
+<div>
+<h2>Book Appointment</h2>
+
+<form action="https://formspree.io/f/YOUR-ID" method="POST">
+
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="tel" name="phone" placeholder="Mobile Number" required>
+<input type="email" name="email" placeholder="Email Address" required>
+
+<textarea name="message" placeholder="Your Message"></textarea>
+
+<button type="submit">Send Request</button>
+
+</form>
+
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Yuva Rejuvenation</p>
+</footer>
+
+</body>
+</html>
