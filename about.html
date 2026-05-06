@@ -11,7 +11,6 @@
 :root{
   --gold:#D4AF37;
   --black:#0a0a0a;
-  --white:#fff;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -19,77 +18,66 @@
 body{
   font-family:'Montserrat',sans-serif;
   background:var(--black);
-  color:var(--white);
+  color:#fff;
 }
 
-/* ABOUT SECTION */
-.about-premium{
-  padding:100px 10%;
+/* NAV */
+header{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 10%;
+  background:#000;
 }
 
-.about-container{
+nav a{
+  color:#fff;
+  margin:0 10px;
+  text-decoration:none;
+}
+
+/* ABOUT */
+.about{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
+  padding:80px 10%;
+  gap:40px;
 }
 
-.about-image img{
+.about img{
   width:100%;
   border-radius:10px;
 }
 
-.about-content h5{
-  color:var(--gold);
-  letter-spacing:3px;
-}
-
-.about-content h2{
+.about h2{
   font-size:40px;
-  margin:15px 0;
+  margin-bottom:20px;
 }
 
-.about-content p{
+.about p{
   color:#ccc;
   margin-bottom:15px;
 }
 
-.about-stats{
-  display:flex;
-  gap:40px;
-  margin:20px 0;
-}
-
-.about-stats h3{
-  color:var(--gold);
-}
-
-/* BUTTON */
-.about-btn{
-  display:inline-block;
+.btn{
   padding:12px 25px;
   border:1px solid var(--gold);
   color:var(--gold);
   text-decoration:none;
 }
 
-.about-btn:hover{
+.btn:hover{
   background:var(--gold);
   color:#000;
 }
 
-/* BOOKING FORM */
-.booking-section{
-  padding:80px 10%;
+/* FORM */
+.booking{
   background:#111;
+  padding:80px 10%;
   text-align:center;
 }
 
-.booking-section h2{
-  margin-bottom:30px;
-}
-
-.booking-form{
+form{
   max-width:500px;
   margin:auto;
   display:flex;
@@ -97,24 +85,28 @@ body{
   gap:15px;
 }
 
-.booking-form input,
-.booking-form select,
-.booking-form textarea{
+input,select,textarea{
   padding:12px;
   border:none;
-  outline:none;
 }
 
-.booking-form button{
+button{
   padding:12px;
   background:var(--gold);
   border:none;
   cursor:pointer;
 }
 
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#000;
+}
+
 /* MOBILE */
 @media(max-width:768px){
-  .about-container{
+  .about{
     grid-template-columns:1fr;
   }
 }
@@ -123,56 +115,61 @@ body{
 
 <body>
 
-<!-- ABOUT SECTION -->
-<section class="about-premium">
-  <div class="about-container">
+<header>
+<h2 style="color:#D4AF37;">YUVA</h2>
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+</nav>
+</header>
 
-    <div class="about-image">
-      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881">
-    </div>
+<section class="about">
+<img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881">
 
-    <div class="about-content">
-      <h5>ABOUT US</h5>
-      <h2>Luxury Care for Timeless Beauty</h2>
+<div>
+<h2>Luxury Care for Timeless Beauty</h2>
+<p>At Yuva Rejuvenation, we provide advanced skin and hair treatments with expert care and modern technology.</p>
 
-      <p>At Yuva Rejuvenation, we provide advanced skin and hair treatments with modern technology and expert care.</p>
+<p>We help you achieve glowing skin, healthy hair, and confidence.</p>
 
-      <div class="about-stats">
-        <div><h3>5000+</h3><span>Clients</span></div>
-        <div><h3>10+</h3><span>Years</span></div>
-        <div><h3>100%</h3><span>Safe</span></div>
-      </div>
-
-      <!-- BUTTON -->
-      <a href="#booking" class="about-btn">Book Appointment</a>
-
-    </div>
-
-  </div>
+<a href="#book" class="btn">Book Appointment</a>
+</div>
 </section>
 
-<!-- BOOKING FORM -->
-<section id="booking" class="booking-section">
-  <h2>Book Your Appointment</h2>
+<section id="book" class="booking">
+<h2>Book Appointment</h2>
 
-  <form class="booking-form">
-    <input type="text" placeholder="Full Name" required>
-    <input type="tel" placeholder="Mobile Number" required>
-    <input type="email" placeholder="Email Address" required>
+<!-- 🔥 WORKING FORM -->
+<form action="https://formspree.io/f/YOUR-ID" method="POST">
 
-    <select required>
-      <option>Select Service</option>
-      <option>Medi Facial</option>
-      <option>Hair Treatment</option>
-      <option>Laser Therapy</option>
-    </select>
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="tel" name="phone" placeholder="Mobile Number" required>
+<input type="email" name="email" placeholder="Email Address" required>
 
-    <input type="date" required>
-    <textarea placeholder="Message"></textarea>
+<select name="service" required>
+<option>Select Service</option>
+<option>Medi Facial</option>
+<option>Hair Treatment</option>
+<option>Laser Therapy</option>
+</select>
 
-    <button type="submit">Submit</button>
-  </form>
+<input type="date" name="date" required>
+
+<textarea name="message" placeholder="Message"></textarea>
+
+<button type="submit">Submit</button>
+
+</form>
+
+<br>
+
+<a href="https://wa.me/917388868708" class="btn">Book on WhatsApp</a>
+
 </section>
+
+<footer>
+<p>© 2026 Yuva Rejuvenation</p>
+</footer>
 
 </body>
 </html>
