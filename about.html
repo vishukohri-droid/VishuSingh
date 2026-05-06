@@ -1,51 +1,30 @@
-<section class="about-premium">
-  <div class="about-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Yuva Rejuvenation</title>
 
-    <div class="about-image">
-      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881" alt="Clinic">
-    </div>
-
-    <div class="about-content">
-      <h5>ABOUT US</h5>
-      <h2>Luxury Care for Timeless Beauty</h2>
-
-      <p>
-        At Yuva Rejuvenation, we redefine beauty with advanced dermatology and aesthetic excellence. 
-        Our clinic in Lucknow is dedicated to delivering personalized treatments using the latest technology 
-        and medically approved procedures.
-      </p>
-
-      <p>
-        With a commitment to safety, innovation, and visible results, we help you achieve radiant skin, 
-        healthier hair, and renewed confidence.
-      </p>
-
-      <div class="about-stats">
-        <div>
-          <h3>5000+</h3>
-          <span>Happy Clients</span>
-        </div>
-        <div>
-          <h3>10+</h3>
-          <span>Years Experience</span>
-        </div>
-        <div>
-          <h3>100%</h3>
-          <span>Safe Treatments</span>
-        </div>
-      </div>
-
-      <a href="contact.html" class="about-btn">Book Appointment</a>
-    </div>
-
-  </div>
-</section>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --gold:#D4AF37;
+  --black:#0a0a0a;
+  --white:#fff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--black);
+  color:var(--white);
+}
+
+/* ABOUT SECTION */
 .about-premium{
   padding:100px 10%;
-  background:#0a0a0a;
-  color:#fff;
 }
 
 .about-container{
@@ -61,14 +40,13 @@
 }
 
 .about-content h5{
-  color:#D4AF37;
+  color:var(--gold);
   letter-spacing:3px;
-  margin-bottom:10px;
 }
 
 .about-content h2{
   font-size:40px;
-  margin-bottom:20px;
+  margin:15px 0;
 }
 
 .about-content p{
@@ -79,31 +57,122 @@
 .about-stats{
   display:flex;
   gap:40px;
-  margin:25px 0;
+  margin:20px 0;
 }
 
 .about-stats h3{
-  color:#D4AF37;
-  font-size:28px;
+  color:var(--gold);
 }
 
+/* BUTTON */
 .about-btn{
   display:inline-block;
   padding:12px 25px;
-  border:1px solid #D4AF37;
-  color:#D4AF37;
+  border:1px solid var(--gold);
+  color:var(--gold);
   text-decoration:none;
 }
 
 .about-btn:hover{
-  background:#D4AF37;
+  background:var(--gold);
   color:#000;
 }
 
-/* Mobile Responsive */
+/* BOOKING FORM */
+.booking-section{
+  padding:80px 10%;
+  background:#111;
+  text-align:center;
+}
+
+.booking-section h2{
+  margin-bottom:30px;
+}
+
+.booking-form{
+  max-width:500px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
+  padding:12px;
+  border:none;
+  outline:none;
+}
+
+.booking-form button{
+  padding:12px;
+  background:var(--gold);
+  border:none;
+  cursor:pointer;
+}
+
+/* MOBILE */
 @media(max-width:768px){
   .about-container{
     grid-template-columns:1fr;
   }
 }
 </style>
+</head>
+
+<body>
+
+<!-- ABOUT SECTION -->
+<section class="about-premium">
+  <div class="about-container">
+
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881">
+    </div>
+
+    <div class="about-content">
+      <h5>ABOUT US</h5>
+      <h2>Luxury Care for Timeless Beauty</h2>
+
+      <p>At Yuva Rejuvenation, we provide advanced skin and hair treatments with modern technology and expert care.</p>
+
+      <div class="about-stats">
+        <div><h3>5000+</h3><span>Clients</span></div>
+        <div><h3>10+</h3><span>Years</span></div>
+        <div><h3>100%</h3><span>Safe</span></div>
+      </div>
+
+      <!-- BUTTON -->
+      <a href="#booking" class="about-btn">Book Appointment</a>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section id="booking" class="booking-section">
+  <h2>Book Your Appointment</h2>
+
+  <form class="booking-form">
+    <input type="text" placeholder="Full Name" required>
+    <input type="tel" placeholder="Mobile Number" required>
+    <input type="email" placeholder="Email Address" required>
+
+    <select required>
+      <option>Select Service</option>
+      <option>Medi Facial</option>
+      <option>Hair Treatment</option>
+      <option>Laser Therapy</option>
+    </select>
+
+    <input type="date" required>
+    <textarea placeholder="Message"></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+</body>
+</html>
