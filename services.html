@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Services | Luxury Derma Clinic</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--gold:#D4AF37;
+--black:#050505;
+--dark:#111;
+}
+
+body{
+margin:0;
+font-family:Montserrat;
+background:var(--black);
+color:white;
+}
+
+h1,h2,h3{
+font-family:"Playfair Display";
+color:var(--gold);
+}
+
+header{
+text-align:center;
+padding:40px 20px;
+border-bottom:1px solid #222;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.section{margin:40px 0;}
+
+.section-title{
+font-size:26px;
+border-left:4px solid var(--gold);
+padding-left:10px;
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.card{
+background:var(--dark);
+padding:20px;
+border-radius:12px;
+border:1px solid #222;
+position:relative;
+}
+
+.card:hover{
+border-color:var(--gold);
+}
+
+.num{
+position:absolute;
+top:10px;
+right:10px;
+background:var(--gold);
+color:black;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+}
+
+button{
+margin-top:10px;
+width:100%;
+padding:10px;
+background:var(--gold);
+border:none;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{background:#b8962f}
+
+/* MODAL */
+#modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+}
+
+.modal-box{
+background:#111;
+width:90%;
+max-width:450px;
+margin:5% auto;
+padding:20px;
+border:1px solid var(--gold);
+border-radius:10px;
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+background:#1a1a1a;
+color:white;
+border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>What We Offer</h1>
+<p>Premium Treatments, Exceptional Results</p>
+</header>
+
+<div class="container">
+
+<!-- MEDI FACIAL -->
+<div class="section">
+<div class="section-title">01 • Medi Facials</div>
+
+<div class="grid">
+
+<div class="card"><div class="num">01</div>
+<h3>Hydra Facial</h3>
+<button onclick="openBook('Hydra Facial')">Book Now</button></div>
+
+<div class="card"><div class="num">02</div>
+<h3>Meso Glow Facial</h3>
+<button onclick="openBook('Meso Glow Facial')">Book Now</button></div>
+
+<div class="card"><div class="num">03</div>
+<h3>Aqua Gold Facial</h3>
+<button onclick="openBook('Aqua Gold Facial')">Book Now</button></div>
+
+<div class="card"><div class="num">04</div>
+<h3>Carbon Peel</h3>
+<button onclick="openBook('Carbon Peel')">Book Now</button></div>
+
+</div>
+</div>
+
+</div>
+
+<!-- BOOKING MODAL -->
+<div id="modal">
+
+<div class="modal-box">
+
+<h2 style="color:gold;">Book Appointment</h2>
+
+<p id="serviceName"></p>
+
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<input id="email" placeholder="Email">
+
+<input type="date" id="date">
+
+<select id="slot">
+<option>10:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>04:00 PM</option>
+<option>06:00 PM</option>
+</select>
+
+<textarea id="msg" placeholder="Message"></textarea>
+
+<button onclick="submitBooking()">Confirm Booking</button>
+<button onclick="closeBook()" style="background:red;color:white;margin-top:10px;">Close</button>
+
+</div>
+
+</div>
+
+<script>
+
+let selectedService="";
+
+// OPEN MODAL
+function openBook(service){
+selectedService=service;
+document.getElementById("modal").style.display="block";
+document.getElementById("serviceName").innerText="Service: "+service;
+}
+
+// CLOSE
+function closeBook(){
+document.getElementById("modal").style.display="none";
+}
+
+// SUBMIT BOOKING
+function submitBooking(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let email=document.getElementById("email").value;
+let date=document.getElementById("date").value;
+let slot=document.getElementById("slot").value;
+let msg=document.getElementById("msg").value;
+
+if(!name||!phone||!date){
+alert("Fill required fields");
+return;
+}
+
+let data=JSON.parse(localStorage.getItem("bookings")||"[]");
+
+// SLOT CHECK
+let exists=data.find(b=>b.date===date && b.slot===slot);
+if(exists){
+alert("❌ Slot already booked");
+return;
+}
+
+data.push({
+service:selectedService,
+name,phone,email,date,slot,msg
+});
+
+localStorage.setItem("bookings",JSON.stringify(data));
+
+alert("✅ Booking Confirmed");
+
+closeBook();
+}
+
+</script>
+
+</body>
+</html>
