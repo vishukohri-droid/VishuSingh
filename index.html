@@ -152,7 +152,6 @@
         .chat-input input { flex: 1; padding: 10px; background: #1b1b1b; border: none; color: #fff; border-radius: 5px; }
         .chat-input button { background: var(--gold); border: none; padding: 0 15px; border-radius: 5px; cursor: pointer; }
         
-        /* Typing Indicator */
         .typing { font-size: 11px; color: var(--gold); padding: 5px 15px; display: none; font-style: italic; }
     </style>
 </head>
@@ -209,8 +208,7 @@
             <h4><i class="fas fa-stethoscope"></i> Yuva Assistant</h4>
             <span onclick="toggleChat()" style="cursor:pointer; color:var(--gold);"><i class="fas fa-times"></i></span>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            </div>
+        <div class="chat-messages" id="chatMessages"></div>
         <div id="botTyping" class="typing">Assistant is typing...</div>
         <div class="chat-input">
             <input type="text" id="chatInput" placeholder="Sawal pucheinge..." onkeypress="if(event.key==='Enter') sendMsg()">
@@ -222,17 +220,21 @@
         let isWaitingForPhone = false;
 
         const clinicData = {
-            address: "📍 SP-1, Alkapuri, Sector C, Aliganj Main Road, Lucknow - 226024.",
+            address: "📍 <b>Clinic Address:</b> SP-1, Alkapuri, Sector C, Aliganj Main Road, Lucknow - 226024.",
+            phone: "📞 <b>Contact Number:</b> +91 7388 868 708",
             doctors: {
                 "Dr. Kundanika Singh": "👩‍⚕️ <b>Dr. Kundanika Singh (MBBS, MD):</b> Skin aur Hair expert.",
                 "Dr. Pragya Mishra": "👩‍⚕️ <b>Dr. Pragya Mishra:</b> Yuva specialized medical team member."
             },
             services: {
-                "Medi Facials": "Hydra Facial, Meso Glow, Carbon Peel.",
-                "Hair Restoration": "PRP, GFC, Hair Transplant.",
-                "RF & Laser Therapy": "Morpheus 8, MNRF.",
-                "Ultherapy (HIFU)": "Non-Surgical Facelift.",
-                "Wellness Drips": "Detox Drips, Vitamin Infusions."
+                "Medi Facials": "Hydra Facial, Meso Glow, Aqua Gold, Carbon Peel, GG Glow, Photofacial, O₂ Derm, Anti-Aging Facial.",
+                "Hair Restoration": "PRP, GFC, Hair Transplant, Hydra Keravive, Exosome Treatment.",
+                "RF & Laser Therapy": "Morpheus 8 (MNRF), Skin Tightening, Body Contouring, Fractional CO₂ Laser.",
+                "Ultherapy (HIFU)": "Non-Surgical Facelift, Deep Skin Lifting, Body HIFU.",
+                "Laser Treatments": "LHR (Diode/Triton), Laser Toning, Tribeam, Fractional CO₂.",
+                "Anti-Aging": "Botox, Dermal Fillers, Thread Lift, Meso Botox.",
+                "Personalised Derma": "Skin Analysis, Acne & Pigmentation, Brightening, Sensitive Skin Protocols.",
+                "Wellness Drips": "Detox Drips, Vitamin Infusions, Immunity Boosters."
             }
         };
 
@@ -240,20 +242,13 @@
             const box = document.getElementById('chatBox');
             if (box.style.display === 'none' || box.style.display === '') {
                 box.style.display = 'flex';
-                if (document.getElementById('chatMessages').innerHTML.trim() === "") {
-                    initGreeting();
-                }
-            } else {
-                box.style.display = 'none';
-            }
+                if (document.getElementById('chatMessages').innerHTML.trim() === "") initGreeting();
+            } else { box.style.display = 'none'; }
         }
 
         function initGreeting() {
-            const hour = new Date().getHours();
-            let greetText = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
-            
             showTyping(() => {
-                addBotMsg(`<strong>✨ ${greetText}! Welcome to Yuva!</strong><br>Namaste! Main Yuva Assistant hoon. Main aapki kaise help kar sakta hoon?
+                addBotMsg(`<strong>✨ Welcome to Yuva!</strong><br>Namaste! Main Yuva Assistant hoon. Main aapki kaise help kar sakta hoon?
                 <div class="options-grid">
                     <button class="opt-btn" onclick="showServices()">💎 All Services</button>
                     <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
@@ -268,7 +263,7 @@
             setTimeout(() => {
                 document.getElementById('botTyping').style.display = 'none';
                 callback();
-            }, 1000);
+            }, 800);
         }
 
         function addBotMsg(text) {
@@ -283,25 +278,6 @@
             const div = document.createElement('div'); div.className = 'user-message';
             div.innerText = text; msgArea.appendChild(div);
             msgArea.scrollTop = msgArea.scrollHeight;
-        }
-
-        function showDoctors() {
-            addUserMsg("Choose Dr.");
-            showTyping(() => {
-                addBotMsg("<b>Choose Dr.</b>");
-                let html = `<div class="options-grid">
-                    <button class="opt-btn" onclick="getDoc('Dr. Kundanika Singh')">Dr. Kundanika Singh</button>
-                    <button class="opt-btn" onclick="getDoc('Dr. Pragya Mishra')">Dr. Pragya Mishra</button>
-                </div>`;
-                addBotMsg(html);
-            });
-        }
-
-        function getDoc(name) {
-            addUserMsg(name);
-            showTyping(() => {
-                addBotMsg(clinicData.doctors[name] + "<br><br>Kya main aapka appointment book karoon?");
-            });
         }
 
         function showServices() {
@@ -321,10 +297,27 @@
             showTyping(() => { addBotMsg(`<strong>${s}:</strong><br>${clinicData.services[s]}`); });
         }
 
+        function showDoctors() {
+            addUserMsg("Choose Dr.");
+            showTyping(() => {
+                addBotMsg("<b>Choose Dr.</b>");
+                let html = `<div class="options-grid">
+                    <button class="opt-btn" onclick="getDoc('Dr. Kundanika Singh')">Dr. Kundanika Singh</button>
+                    <button class="opt-btn" onclick="getDoc('Dr. Pragya Mishra')">Dr. Pragya Mishra</button>
+                </div>`;
+                addBotMsg(html);
+            });
+        }
+
+        function getDoc(name) {
+            addUserMsg(name);
+            showTyping(() => { addBotMsg(clinicData.doctors[name]); });
+        }
+
         function askBooking() {
             addUserMsg("Book Slot");
             showTyping(() => {
-                addBotMsg("Zaroor! Apna <b>Mobile Number</b> enter kijiye taaki hum aapse contact kar sakein:");
+                addBotMsg("Apna <b>Mobile Number</b> type karein taaki hum aapse contact kar sakein:");
                 isWaitingForPhone = true;
             });
         }
@@ -339,8 +332,8 @@
 
             if(isWaitingForPhone) {
                 showTyping(() => {
-                    addBotMsg("Shukriya! Humne aapka number save kar liya hai. Ab aap WhatsApp par appointment confirm kar sakte hain.");
-                    addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white; border:none;" onclick="window.open('https://wa.me/917388868708?text=Appointment Request from: ${val}')">Confirm on WhatsApp</button>`);
+                    addBotMsg("Shukriya! Hum jald hi aapse baat karenge.");
+                    addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white; border:none;" onclick="window.open('https://wa.me/917388868708?text=I want to book an appointment. My number is ${val}')">Confirm on WhatsApp</button>`);
                     isWaitingForPhone = false;
                 });
                 return;
@@ -348,11 +341,12 @@
 
             showTyping(() => {
                 let low = val.toLowerCase();
-                if (low.includes("address")) addBotMsg(clinicData.address);
+                if (low.includes("address") || low.includes("location") || low.includes("kaha")) addBotMsg(clinicData.address);
+                else if (low.includes("phone") || low.includes("number") || low.includes("contact") || low.includes("mobile")) addBotMsg(clinicData.phone);
                 else if (low.includes("doctor") || low.includes("dr")) showDoctors();
                 else if (low.includes("service")) showServices();
                 else if (low.includes("book")) askBooking();
-                else addBotMsg("Main aapki treatments, doctors ya address mein help kar sakta hoon.");
+                else addBotMsg("Main aapki treatments, doctors ya clinic ki jankari mein help kar sakta hoon.");
             });
         }
     </script>
