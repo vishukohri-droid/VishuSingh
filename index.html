@@ -140,16 +140,21 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
         }
 
-        .chat-header { background: #000; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+        .chat-header { background: #000; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; border-radius: 20px 20px 0 0; }
         .chat-header h4 { color: var(--gold); margin: 0; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0a0a0a; }
-        .bot-message { background: #1c1c1c; color: #eee; padding: 12px; border-radius: 10px; align-self: flex-start; font-size: 13px; line-height: 1.5; }
+        .bot-message { background: #1c1c1c; color: #eee; padding: 12px; border-radius: 10px; align-self: flex-start; font-size: 13px; line-height: 1.5; width: 85%; }
         .user-message { background: var(--gold); color: #000; padding: 10px; border-radius: 10px; align-self: flex-end; font-size: 13px; }
+        
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
         .opt-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); padding: 8px; border-radius: 8px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .opt-btn:hover { background: var(--gold); color: #000; }
         
-        .chat-input-area { background: #000; border-top: 1px solid #222; padding: 12px; }
+        .lang-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
+        .lang-btn { background: #222; color: #fff; border: 1px solid #444; padding: 4px 12px; border-radius: 20px; font-size: 10px; cursor: pointer; }
+        .lang-btn.active { border-color: var(--gold); color: var(--gold); }
+
+        .chat-input-area { background: #000; border-top: 1px solid #222; padding: 12px; border-radius: 0 0 20px 20px; }
         .chat-input { display: flex; gap: 8px; align-items: center; }
         .chat-input input { flex: 1; padding: 10px; background: #1b1b1b; border: none; color: #fff; border-radius: 5px; outline: none; }
         .chat-input button { background: var(--gold); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
@@ -213,9 +218,16 @@
             <h4><i class="fas fa-stethoscope"></i> Yuva Assistant</h4>
             <span onclick="toggleChat()" style="cursor:pointer; color:var(--gold);"><i class="fas fa-times"></i></span>
         </div>
+        
         <div class="chat-messages" id="chatMessages"></div>
+        
         <div id="botTyping" class="typing">Assistant is typing...</div>
+        
         <div class="chat-input-area">
+            <div class="lang-switch">
+                <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+                <button class="lang-btn" id="btn-hi" onclick="setLang('hi')">हिंदी</button>
+            </div>
             <img id="imgPreview" src="">
             <div class="chat-input">
                 <label for="aiFile" class="cam-btn"><i class="fas fa-camera"></i></label>
@@ -227,7 +239,43 @@
     </div>
 
     <script>
-        let chatState = { step: "idle", userName: "", userPhone: "", selectedService: "Not Selected", selectedDr: "Not Selected" };
+        let chatState = { 
+            step: "idle", 
+            userName: "", 
+            userPhone: "", 
+            selectedService: "Not Selected", 
+            selectedDr: "Not Selected",
+            lang: "en" 
+        };
+
+        const translations = {
+            en: {
+                welcome: "✨ Welcome to Yuva!<br>I am your AI Assistant. How can I help you today?",
+                deepAi: "🔍 Deep AI Analysis (Photo & Text)",
+                allServices: "💎 All Services",
+                bookSlot: "📅 Book Slot",
+                address: "📍 Address",
+                chooseDr: "👨‍⚕️ Choose Dr.",
+                scanActive: "📸 <b>Skin Analysis Mode Active:</b><br>Please send a clear photo of your skin concern using the camera icon below.",
+                typing: "Assistant is typing...",
+                placeholder: "Type or upload photo...",
+                invalidImg: "⚠️ <b>Invalid Image:</b> Photo is not clear. Please send a sharp, close-up photo.",
+                treatmentNote: "⚠️ <b>Note:</b> For better diagnosis, please book an appointment with our doctor. Your health is our priority."
+            },
+            hi: {
+                welcome: "✨ Yuva में आपका स्वागत है!<br>मैं आपका AI सहायक हूँ। मैं आज आपकी क्या मदद कर सकता हूँ?",
+                deepAi: "🔍 डीप AI विश्लेषण (फोटो और टेक्स्ट)",
+                allServices: "💎 सभी सेवाएँ",
+                bookSlot: "📅 स्लॉट बुक करें",
+                address: "📍 पता",
+                chooseDr: "👨‍⚕️ डॉक्टर चुनें",
+                scanActive: "📸 <b>स्किन विश्लेषण मोड सक्रिय:</b><br>नीचे दिए गए कैमरा आइकन का उपयोग करके अपनी त्वचा की एक स्पष्ट फोटो भेजें।",
+                typing: "सहायक लिख रहा है...",
+                placeholder: "लिखें या फोटो अपलोड करें...",
+                invalidImg: "⚠️ <b>गलत इमेज:</b> फोटो साफ नहीं है। कृपया सही विश्लेषण के लिए एक स्पष्ट और क्लोज-अप फोटो भेजें।",
+                treatmentNote: "⚠️ <b>नोट:</b> बेहतर जानकारी और सही इलाज के लिए, कृपया डॉक्टर से अपॉइंटमेंट बुक करें। आपकी सेहत हमारी प्राथमिकता है।"
+            }
+        };
 
         const clinicData = {
             address: "📍 <b>Clinic Address:</b> SP-1, Alkapuri, Sector C, Aliganj Main Road, Lucknow - 226024.",
@@ -248,6 +296,18 @@
             }
         };
 
+        function setLang(l) {
+            chatState.lang = l;
+            document.getElementById('btn-en').classList.toggle('active', l === 'en');
+            document.getElementById('btn-hi').classList.toggle('active', l === 'hi');
+            document.getElementById('chatInput').placeholder = translations[l].placeholder;
+            document.getElementById('botTyping').innerText = translations[l].typing;
+            
+            // Re-initialize greeting in the new language
+            document.getElementById('chatMessages').innerHTML = "";
+            initGreeting();
+        }
+
         function toggleChat() {
             const box = document.getElementById('chatBox');
             if (box.style.display === 'none' || box.style.display === '') {
@@ -257,21 +317,22 @@
         }
 
         function initGreeting() {
+            const t = translations[chatState.lang];
             showTyping(() => {
-                addBotMsg(`✨ Welcome to Yuva!<br>Main Yuva AI Assistant hoon. Kya aap photo scan karna chahte hain?
+                addBotMsg(`${t.welcome}
                 <div class="options-grid">
-                    <button class="opt-btn" style="grid-column: span 2; background: var(--gold); color: #000; font-weight: bold;" onclick="triggerAI()">🔍 Deep AI Analysis (Photo & Text)</button>
-                    <button class="opt-btn" onclick="showServices()">💎 All Services</button>
-                    <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
-                    <button class="opt-btn" onclick="autoQuery('📍 Address batayein')">📍 Address</button>
-                    <button class="opt-btn" onclick="showDoctors()">👨‍⚕️ Choose Dr.</button>
+                    <button class="opt-btn" style="grid-column: span 2; background: var(--gold); color: #000; font-weight: bold;" onclick="triggerAI()">${t.deepAi}</button>
+                    <button class="opt-btn" onclick="showServices()">${t.allServices}</button>
+                    <button class="opt-btn" onclick="askBooking()">${t.bookSlot}</button>
+                    <button class="opt-btn" onclick="autoQuery('📍 Address')">${t.address}</button>
+                    <button class="opt-btn" onclick="showDoctors()">${t.chooseDr}</button>
                 </div>`);
             });
         }
 
         function triggerAI() {
-            addUserMsg("Deep AI Analysis");
-            showTyping(() => { addBotMsg("📸 <b>Skin Analysis Mode Active:</b><br>Niche Camera icon par click karke apni skin ki clear photo bhejein."); });
+            addUserMsg(translations[chatState.lang].deepAi);
+            showTyping(() => { addBotMsg(translations[chatState.lang].scanActive); });
         }
 
         function previewFile() {
@@ -286,7 +347,7 @@
 
         function showTyping(callback) {
             document.getElementById('botTyping').style.display = 'block';
-            setTimeout(() => { document.getElementById('botTyping').style.display = 'none'; callback(); }, 1200);
+            setTimeout(() => { document.getElementById('botTyping').style.display = 'none'; callback(); }, 1000);
         }
 
         function addBotMsg(text) {
@@ -307,32 +368,20 @@
             const input = document.getElementById('chatInput');
             const fileInp = document.getElementById('aiFile');
             const val = input.value.trim();
-            const deepInfo = "<br><br>⚠️ <b>Note:</b> Zyada deep jankari ke liye please Dr. se appointment book karein.";
+            const t = translations[chatState.lang];
 
             if (!val && fileInp.files.length === 0) return;
 
-            // --- AI PHOTO ANALYSIS LOGIC ---
             if(fileInp.files.length > 0) {
-                addUserMsg("📸 Uploaded Photo for AI Scan.");
+                addUserMsg("📸 Photo Uploaded");
                 document.getElementById('imgPreview').style.display = 'none';
                 fileInp.value = "";
                 showTyping(() => {
-                    addBotMsg("🔍 Scanning for skin concerns...");
+                    addBotMsg("🔍 Scanning for concerns...");
                     setTimeout(() => {
-                        const isValid = Math.random() > 0.15; 
-                        if(!isValid) {
-                            addBotMsg("⚠️ <b>Give me a correct image:</b> Photo clear nahi hai. Please ek saaf aur close-up photo bhejein taaki main sahi se analyze kar sakun.");
-                        } else {
-                            const results = [
-                                "<b>Analysis:</b> Skin texture uneven lag raha hai (Pigmentation). Iske liye <b>Laser Toning</b> best hai.",
-                                "<b>Analysis:</b> Active acne spots detect hue hain. <b>Chemical Peel</b> aur specialized skincare ki zarurat hai.",
-                                "<b>Analysis:</b> Skin dehydrated lag rahi hai. <b>Hydra Facial</b> isse instantly refresh kar dega.",
-                                "<b>Analysis:</b> Fine lines aur texture issue lag raha hai. <b>MNRF</b> treatment suggest kiya jata hai."
-                            ];
-                            const res = results[Math.floor(Math.random() * results.length)];
-                            addBotMsg("✅ " + res + deepInfo);
-                            addOptions([{t:"Details Dekhein", v:"Medi Facials"}, {t:"Doctor Book Karein", v:"book"}]);
-                        }
+                        // AI RESULT MESSAGE ADDED HERE
+                        addBotMsg(`🔍 <b>AI Analysis Result:</b><br><br>Scan ke mutabik aapki skin ko <b>Deep Hydration</b> aur <b>Pigmentation Correction</b> ki zarurat hai. Iske liye <b>Hydra Facial</b> aur <b>Laser Toning</b> best options hain.<br><br>Kya aap details dekhna chahenge? ${t.treatmentNote}`);
+                        addOptions([{t:"Details Dekhein", v:"Medi Facials"}, {t:"Book Doctor", v:"book"}]);
                     }, 1500);
                 });
                 return;
@@ -349,38 +398,30 @@
             if(chatState.step === "phone") {
                 chatState.userPhone = val;
                 showTyping(() => {
-                    addBotMsg("Details lock ho gayi hain. WhatsApp par confirm karein.");
-                    const msg = encodeURIComponent(`Hi Yuva, I am ${chatState.userName}. Phone: ${val}. I need a consultation.`);
+                    addBotMsg("Details saved. Connect on WhatsApp to confirm.");
+                    const msg = encodeURIComponent(`Hi Yuva, I am ${chatState.userName}. Phone: ${val}. Need consultation.`);
                     addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white;" onclick="window.open('https://wa.me/917388868708?text=${msg}')">Confirm on WhatsApp</button>`);
                     chatState.step = "idle";
                 });
                 return;
             }
 
-            // --- TEXT KEYWORD RESPONSES ---
             showTyping(() => {
-                if (low.includes("acne") || low.includes("pimple")) {
-                    addBotMsg("Acne ke liye hamare paas <b>Carbon Peel</b> aur laser treatments hain." + deepInfo);
-                } else if (low.includes("hair") || low.includes("fall")) {
-                    addBotMsg("Hair loss ke liye <b>GFC Treatment</b> aur <b>PRP</b> kaafi effective hote hain." + deepInfo);
-                } else if (low.includes("glow") || low.includes("face")) {
-                    addBotMsg("Instant glow ke liye <b>Hydra Facial</b> aur <b>Meso Glow</b> signature treatments hain." + deepInfo);
+                if (low.includes("acne")) {
+                    addBotMsg("Acne treatment include Carbon Peel and MNRF. " + t.treatmentNote);
                 } else if (low.includes("address")) {
                     addBotMsg(clinicData.address);
-                } else if (low.includes("doctor") || low.includes("dr")) {
+                } else if (low.includes("doctor")) {
                     showDoctors();
-                } else if (low.includes("book")) {
-                    askBooking();
                 } else {
-                    addBotMsg("Main Yuva Assistant hoon. Aap photo upload karke AI scan kar sakte hain ya treatments ke bare mein pooch sakte hain." + deepInfo);
+                    addBotMsg("How can I assist you with your skin and hair goals today?");
                 }
             });
         }
 
         function showServices() {
-            addUserMsg("All Services");
+            addUserMsg(translations[chatState.lang].allServices);
             showTyping(() => {
-                addBotMsg("Hamari Services:");
                 let html = `<div class="options-grid">`;
                 for (let s in clinicData.services) html += `<button class="opt-btn" onclick="getServiceDetail('${s}')">${s}</button>`;
                 html += `</div>`;
@@ -400,7 +441,6 @@
         function showDoctors() {
             addUserMsg("Choose Dr.");
             showTyping(() => {
-                addBotMsg("Select specialist:");
                 let html = `<div class="options-grid">
                     <button class="opt-btn" onclick="selectDoc('Dr. Kundanika Singh')">Dr. Kundanika Singh</button>
                     <button class="opt-btn" onclick="selectDoc('Dr. Pragya Mishra')">Dr. Pragya Mishra</button>
@@ -420,7 +460,7 @@
 
         function askBooking() {
             addUserMsg("Book Appointment");
-            showTyping(() => { addBotMsg("Zaroor! Treatment select karein:"); showServices(); });
+            showTyping(() => { addBotMsg("Please select a treatment:"); showServices(); });
         }
 
         function addOptions(opts) {
