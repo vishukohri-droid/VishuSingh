@@ -2,290 +2,439 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact | Yuva Rejuvenation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Luxury Contact & Booking | Yuva Rejuvenation</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
 --gold:#D4AF37;
---black:#050505;
---gray:#111;
---white:#f5f5f5;
+--black:#0a0a0a;
+--white:#ffffff;
+--gray:#cfcfcf;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
 }
 
 body{
-margin:0;
-font-family:Montserrat;
+font-family:'Montserrat',sans-serif;
 background:var(--black);
-color:white;
+color:var(--white);
+overflow-x:hidden;
 }
 
-h1,h2{font-family:"Playfair Display"; color:var(--gold);}
+/* NAVBAR */
 
-/* HEADER */
 header{
-text-align:center;
-padding:25px;
-border-bottom:1px solid #222;
-background:#000;
+position:sticky;
+top:0;
+z-index:1000;
+background:rgba(0,0,0,0.9);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 10%;
+border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-/* CONTAINER */
-.container{
-max-width:1000px;
-margin:auto;
-padding:20px;
+.logo{
+font-size:28px;
+font-family:'Playfair Display',serif;
+color:var(--gold);
 }
 
-.card{
-background:#111;
-padding:20px;
-border-radius:10px;
-border:1px solid #222;
-margin:15px 0;
-}
-
-/* INPUT */
-input,select,textarea{
-width:100%;
-padding:12px;
-margin:8px 0;
-background:#1a1a1a;
-border:none;
+nav a{
+text-decoration:none;
 color:white;
-border-radius:6px;
+margin-left:25px;
+font-size:14px;
+transition:0.3s;
 }
 
-/* BUTTON */
-button{
-width:100%;
-padding:12px;
-background:var(--gold);
-border:none;
-color:black;
-font-weight:bold;
-border-radius:6px;
-cursor:pointer;
+nav a:hover{
+color:var(--gold);
 }
 
-button:hover{background:#b8962f}
+/* HERO */
 
-/* GRID */
-.grid{
+.hero{
+height:60vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+
+background:
+linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)),
+url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=2070&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+}
+
+.hero h1{
+font-size:60px;
+margin-bottom:15px;
+font-family:'Playfair Display',serif;
+animation:fadeUp 1s ease;
+}
+
+.hero p{
+max-width:700px;
+color:#ddd;
+animation:fadeUp 1.5s ease;
+}
+
+/* MAIN CONTACT */
+
+.contact-section{
+padding:100px 10%;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:start;
+}
+
+/* LEFT */
+
+.contact-info h2{
+font-size:42px;
+margin-bottom:20px;
+font-family:'Playfair Display',serif;
+}
+
+.contact-info p{
+color:var(--gray);
+line-height:1.8;
+margin-bottom:20px;
+}
+
+.info-box{
+margin-top:30px;
+}
+
+.info-box div{
+margin-bottom:15px;
+font-size:15px;
+}
+
+/* FORM */
+
+.booking-box{
+background:#111;
+padding:40px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+border:1px solid rgba(212,175,55,0.2);
+}
+
+.booking-box h2{
+margin-bottom:25px;
+font-size:32px;
+font-family:'Playfair Display',serif;
+}
+
+form{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+input,
+select,
+textarea{
+padding:14px;
+border:none;
+outline:none;
+background:#1b1b1b;
+color:white;
+border-radius:8px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+border:1px solid var(--gold);
+}
+
+button{
+padding:14px;
+border:none;
+background:var(--gold);
+color:#000;
+font-weight:700;
+cursor:pointer;
+border-radius:8px;
+transition:0.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
 }
 
 /* MAP */
-iframe{
-width:100%;
-height:250px;
-border-radius:10px;
-border:0;
+
+.map-section{
+padding:0 10% 80px;
 }
 
-/* CHAT */
-.chat{
+.map-section iframe{
+width:100%;
+height:350px;
+border:none;
+border-radius:15px;
+}
+
+/* PAYMENT */
+
+.payment-box{
+margin-top:25px;
+padding:20px;
+background:#161616;
+border-radius:10px;
+border:1px solid rgba(212,175,55,0.2);
+}
+
+.payment-box h3{
+margin-bottom:10px;
+}
+
+/* CHATBOT */
+
+.chatbot{
 position:fixed;
 bottom:20px;
 right:20px;
-width:280px;
-background:#111;
-border:1px solid var(--gold);
-border-radius:10px;
-overflow:hidden;
-}
-
-.chat-header{
-background:var(--gold);
-color:black;
-padding:10px;
-font-weight:bold;
-}
-
-.chat-box{
-height:180px;
-overflow:auto;
-padding:10px;
-font-size:13px;
-}
-
-.chat-input{
+width:65px;
+height:65px;
+background:#25D366;
+border-radius:50%;
 display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+text-decoration:none;
+color:white;
+box-shadow:0 10px 20px rgba(0,0,0,0.4);
+z-index:999;
 }
 
-.chat-input input{
-flex:1;
+/* FOOTER */
+
+footer{
+padding:25px;
+text-align:center;
+background:#000;
+color:#999;
+margin-top:50px;
 }
+
+/* ANIMATION */
+
+.fade{
+animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.hero h1{
+font-size:40px;
+}
+
+.contact-section{
+grid-template-columns:1fr;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+
 <header>
-<h1>Contact & Appointment</h1>
-<p>Yuva Rejuvenation Clinic</p>
+
+<div class="logo">YUVA</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="services.html">Services</a>
+<a href="contact.html">Contact</a>
+</nav>
+
 </header>
 
-<div class="container">
+<!-- HERO -->
 
-<!-- CONTACT FORM -->
-<div class="card">
-<h2>📞 Book Appointment</h2>
+<section class="hero">
 
-<div class="grid">
+<div class="fade">
+<h1>Luxury Contact & Booking</h1>
 
-<div>
-<input id="name" placeholder="Full Name">
-<input id="phone" placeholder="Phone Number">
-<input id="email" placeholder="Email">
+<p>
+Book your premium skin & hair consultation with Yuva Rejuvenation.
+Experience advanced aesthetic care with modern technology and expert specialists.
+</p>
 </div>
 
-<div>
-<input type="date" id="date">
+</section>
 
-<select id="slot">
-<option>10:00 AM</option>
-<option>12:00 PM</option>
-<option>02:00 PM</option>
-<option>04:00 PM</option>
-<option>06:00 PM</option>
+<!-- CONTACT -->
+
+<section class="contact-section">
+
+<!-- LEFT INFO -->
+
+<div class="contact-info fade">
+
+<h2>Get In Touch</h2>
+
+<p>
+We are dedicated to delivering luxury skincare and hair treatments with
+world-class technology and personalized care.
+</p>
+
+<div class="info-box">
+
+<div>📍 Aliganj, Lucknow, Uttar Pradesh</div>
+
+<div>📞 +91 7388868708</div>
+
+<div>📧 vishukohri@gmail.com</div>
+
+<div>🕒 Mon - Sun : 10 AM - 8 PM</div>
+
+</div>
+
+<div class="payment-box">
+
+<h3>💳 Online Payment</h3>
+
+<p>UPI ID: yuva@upi</p>
+
+<p>Accepting: Google Pay • PhonePe • Paytm</p>
+
+</div>
+
+</div>
+
+<!-- FORM -->
+
+<div class="booking-box fade">
+
+<h2>Book Appointment</h2>
+
+<!-- WORKING FORM -->
+
+<form action="https://formspree.io/f/YOUR-ID" method="POST">
+
+<input type="text" name="name" placeholder="Full Name" required>
+
+<input type="tel" name="phone" placeholder="Mobile Number" required>
+
+<input type="email" name="email" placeholder="Email Address" required>
+
+<select name="service" required>
+
+<option value="">Select Treatment</option>
+
+<option>Hydra Facial</option>
+
+<option>Laser Hair Removal</option>
+
+<option>PRP Hair Therapy</option>
+
+<option>Carbon Facial</option>
+
+<option>Anti Aging Treatment</option>
+
 </select>
 
-<textarea id="msg" placeholder="Your Message"></textarea>
-</div>
+<!-- DATE PICKER -->
+
+<input type="date" name="date" required>
+
+<!-- TIME SLOT -->
+
+<select name="time" required>
+
+<option value="">Choose Time Slot</option>
+
+<option>10:00 AM</option>
+
+<option>11:00 AM</option>
+
+<option>12:00 PM</option>
+
+<option>02:00 PM</option>
+
+<option>04:00 PM</option>
+
+<option>06:00 PM</option>
+
+</select>
+
+<textarea name="message" rows="5" placeholder="Write Your Message"></textarea>
+
+<button type="submit">Book Appointment</button>
+
+</form>
 
 </div>
 
-<button onclick="book()">📅 Submit Booking</button>
-<button onclick="pay()">💳 Pay Now</button>
-</div>
+</section>
 
 <!-- MAP -->
-<div class="card">
-<h2>📍 Our Location</h2>
-<iframe src="https://maps.google.com/maps?q=lucknow&t=&z=13&output=embed"></iframe>
-</div>
 
-<!-- ADMIN -->
-<div class="card">
-<h2>📊 Admin Panel</h2>
+<section class="map-section fade">
 
-<input id="pass" placeholder="Admin Password">
-<button onclick="login()">Login</button>
+<iframe 
+src="https://www.google.com/maps?q=Aliganj,Lucknow&output=embed">
+</iframe>
 
-<div id="admin" style="display:none;">
-<h3>All Bookings</h3>
-<div id="list"></div>
-</div>
+</section>
 
-</div>
+<!-- WHATSAPP CHATBOT -->
 
-</div>
+<a href="https://wa.me/917388868708" class="chatbot">
+💬
+</a>
 
-<!-- CHATBOT -->
-<div class="chat">
-<div class="chat-header">🤖 AI Assistant</div>
+<!-- FOOTER -->
 
-<div class="chat-box" id="chatBox"></div>
+<footer>
 
-<div class="chat-input">
-<input id="chatInput">
-<button onclick="chat()">Send</button>
-</div>
-</div>
+<p>
+© 2026 Yuva Rejuvenation | Luxury Aesthetics Clinic
+</p>
 
-<script>
-
-// ================= BOOKING =================
-function book(){
-
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let email=document.getElementById("email").value;
-let date=document.getElementById("date").value;
-let slot=document.getElementById("slot").value;
-
-if(!name||!phone||!date){
-alert("Fill required fields");
-return;
-}
-
-let data=JSON.parse(localStorage.getItem("bookings")||"[]");
-
-// SLOT BLOCK
-let exists=data.find(b=>b.date===date && b.slot===slot);
-if(exists){
-alert("❌ Slot already booked");
-return;
-}
-
-data.push({name,phone,email,date,slot});
-localStorage.setItem("bookings",JSON.stringify(data));
-
-alert("✅ Booking Successful");
-loadAdmin();
-}
-
-// ================= PAYMENT =================
-function pay(){
-window.open("https://rzp.io/","_blank");
-}
-
-// ================= ADMIN =================
-function login(){
-let pass=document.getElementById("pass").value;
-
-if(pass==="admin123"){
-document.getElementById("admin").style.display="block";
-loadAdmin();
-}else{
-alert("Wrong Password");
-}
-}
-
-function loadAdmin(){
-let data=JSON.parse(localStorage.getItem("bookings")||"[]");
-let html="";
-
-data.forEach((b,i)=>{
-html+=`<p>${i+1}. ${b.name} | ${b.phone} | ${b.date} | ${b.slot}</p>`;
-});
-
-document.getElementById("list").innerHTML=html;
-}
-
-// ================= CHATBOT =================
-function chat(){
-
-let input=document.getElementById("chatInput");
-let text=input.value;
-if(!text) return;
-
-let box=document.getElementById("chatBox");
-
-box.innerHTML+=`<div><b>You:</b> ${text}</div>`;
-
-let reply="";
-
-if(text.includes("price")){
-reply="💰 Starts ₹999";
-}
-else if(text.includes("book")){
-reply="📅 Use booking form";
-}
-else{
-reply="🤖 AI: Connect OpenAI API for smart responses";
-}
-
-box.innerHTML+=`<div><b>AI:</b> ${reply}</div>`;
-input.value="";
-}
-
-</script>
+</footer>
 
 </body>
 </html>
