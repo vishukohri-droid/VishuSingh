@@ -1,193 +1,495 @@
-<!-- --- PREMIUM GOLD SERVICES SECTION --- -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Derma Clinic Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-    :root {
-        --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FBF5B7 50%, #B8860B 100%);
-        --dark-bg: #0a0a0a;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Montserrat',sans-serif;
+}
+
+body{
+    background:#0a0a0a;
+    color:#fff;
+}
+
+/* ===== VARIABLES ===== */
+:root{
+    --gold-gradient: linear-gradient(135deg,#D4AF37 0%,#FBF5B7 50%,#B8860B 100%);
+    --dark-bg:#0a0a0a;
+}
+
+/* ===== SERVICES SECTION ===== */
+.offerings{
+    padding:100px 8%;
+    background:var(--dark-bg);
+    text-align:center;
+}
+
+.section-header span{
+    color:#D4AF37;
+    letter-spacing:5px;
+    font-size:14px;
+}
+
+.section-header h2{
+    font-size:48px;
+    margin-top:15px;
+    background:var(--gold-gradient);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-family:'Playfair Display',serif;
+}
+
+/* ===== GRID ===== */
+.offer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-top:60px;
+}
+
+.offer-card{
+    background:#111;
+    padding:40px 30px;
+    border:1px solid rgba(212,175,55,0.3);
+    position:relative;
+    overflow:hidden;
+    transition:0.4s;
+}
+
+.offer-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent);
+    transition:0.5s;
+}
+
+.offer-card:hover::before{
+    left:100%;
+}
+
+.offer-card:hover{
+    transform:translateY(-10px);
+    border-color:#D4AF37;
+    box-shadow:0 10px 30px rgba(212,175,55,0.2);
+}
+
+.offer-num{
+    position:absolute;
+    top:10px;
+    right:20px;
+    font-size:50px;
+    color:rgba(212,175,55,0.08);
+    font-family:'Playfair Display',serif;
+}
+
+.offer-card h3{
+    color:#D4AF37;
+    margin-bottom:15px;
+    font-size:24px;
+}
+
+.offer-card p{
+    color:#aaa;
+    line-height:1.7;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.offer-btn{
+    color:#D4AF37;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.offer-btn:hover{
+    letter-spacing:1px;
+}
+
+/* ===== BUTTONS ===== */
+.btn-container{
+    margin-top:50px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.gold-btn{
+    background:var(--gold-gradient);
+    color:#000;
+    border:none;
+    padding:15px 35px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+    clip-path:polygon(10% 0,100% 0,90% 100%,0% 100%);
+}
+
+.gold-btn:hover{
+    transform:scale(1.05);
+}
+
+.return-home{
+    background:transparent;
+    border:1px solid #D4AF37;
+    color:#D4AF37;
+    padding:15px 35px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.return-home:hover{
+    background:rgba(212,175,55,0.1);
+}
+
+/* ===== CHATBOT ===== */
+.chat-box{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:360px;
+    max-height:500px;
+    background:#111;
+    border:1px solid #D4AF37;
+    display:none;
+    flex-direction:column;
+    z-index:9999;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.chat-header{
+    background:#D4AF37;
+    color:#000;
+    padding:15px;
+    font-weight:700;
+}
+
+.chat-messages{
+    padding:15px;
+    overflow-y:auto;
+    height:350px;
+}
+
+.user-message,
+.bot-message{
+    margin-bottom:15px;
+    padding:12px;
+    border-radius:10px;
+    line-height:1.6;
+}
+
+.user-message{
+    background:#222;
+    text-align:right;
+}
+
+.bot-message{
+    background:#1b1b1b;
+    border:1px solid rgba(212,175,55,0.2);
+}
+
+.opt-btn{
+    margin-top:12px;
+    margin-right:10px;
+    padding:10px 15px;
+    border:none;
+    background:#D4AF37;
+    color:#000;
+    cursor:pointer;
+    border-radius:5px;
+    font-weight:600;
+}
+
+.opt-btn:hover{
+    opacity:0.9;
+}
+
+.close-chat{
+    float:right;
+    cursor:pointer;
+}
+
+#extra-services{
+    display:none;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+
+    .section-header h2{
+        font-size:34px;
     }
 
-    .offerings { 
-        padding: 100px 10%; 
-        background-color: var(--dark-bg); 
-        color: #fff;
-        text-align: center;
+    .chat-box{
+        width:92%;
+        right:4%;
     }
-
-    .section-header h2 { 
-        font-size: 45px; 
-        background: var(--gold-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 20px;
-        font-family: 'Playfair Display', serif;
-    }
-
-    .offer-grid { 
-        display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-        gap: 25px; 
-        margin-top: 50px;
-    }
-
-    .offer-card { 
-        background: #111; 
-        padding: 40px 30px; 
-        border: 1px solid rgba(212, 175, 55, 0.3); 
-        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-        position: relative;
-        overflow: hidden;
-    }
-
-    .offer-card::before {
-        content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-        transition: 0.5s;
-    }
-
-    .offer-card:hover::before { left: 100%; }
-
-    .offer-card:hover { 
-        border-color: #D4AF37; 
-        transform: translateY(-10px); 
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); 
-    }
-
-    .offer-num { 
-        font-size: 50px; font-family: 'Playfair Display'; 
-        color: rgba(212, 175, 55, 0.1); 
-        position: absolute; top: 10px; right: 20px; 
-    }
-
-    .offer-card h3 { color: #D4AF37; margin-bottom: 15px; font-size: 22px; }
-    .offer-card p { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 25px; }
-
-    /* Action Buttons */
-    .btn-container { margin-top: 50px; display: flex; justify-content: center; gap: 20px; }
-    
-    .gold-btn {
-        background: var(--gold-gradient);
-        color: #000; padding: 15px 35px; border: none;
-        font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-        cursor: pointer; transition: 0.3s; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-    }
-
-    .gold-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-
-    /* Hidden Section */
-    #extra-services { display: none; }
-
-    .return-home {
-        background: transparent; border: 1px solid #D4AF37; color: #D4AF37;
-        padding: 15px 35px; cursor: pointer; transition: 0.3s;
-        text-transform: uppercase; font-weight: 600;
-    }
-    .return-home:hover { background: rgba(212, 175, 55, 0.1); }
+}
 </style>
+</head>
+
+<body>
 
 <section class="offerings" id="services-section">
+
     <div class="section-header">
-        <span style="color: #D4AF37; letter-spacing: 5px;">EXCLUSIVE SELECTIONS</span>
+        <span>EXCLUSIVE SELECTIONS</span>
         <h2>Premium Treatments, Exceptional Results</h2>
     </div>
 
-    <!-- First 4 Services (Visible) -->
+    <!-- SERVICES -->
     <div class="offer-grid">
+
         <div class="offer-card">
             <span class="offer-num">01</span>
             <h3>Medi Facials</h3>
-            <p>Advanced skincare science for luminous, healthy skin.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Medi Facials')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Advanced skincare science for luminous healthy skin.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Medi Facials')">
+                EXPLORE →
+            </div>
         </div>
+
         <div class="offer-card">
             <span class="offer-num">02</span>
             <h3>Hair Restoration</h3>
-            <p>Proven medical therapies to restore fuller, healthier hair.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Hair Restoration')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Proven therapies to restore fuller healthier hair.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Hair Restoration')">
+                EXPLORE →
+            </div>
         </div>
+
         <div class="offer-card">
             <span class="offer-num">03</span>
             <h3>RF & Laser Therapy</h3>
-            <p>Precision treatments for deep skin tightening and collagen renewal.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('RF & Laser Therapy')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Advanced skin tightening and collagen stimulation.</p>
+            <div class="offer-btn" onclick="getServiceDetail('RF & Laser Therapy')">
+                EXPLORE →
+            </div>
         </div>
+
         <div class="offer-card">
             <span class="offer-num">04</span>
             <h3>Ultherapy (HIFU)</h3>
-            <p>Non-surgical facelift results with deep lifting technology.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Ultherapy (HIFU)')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Non-surgical lifting and contouring treatment.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Ultherapy (HIFU)')">
+                EXPLORE →
+            </div>
         </div>
+
     </div>
 
-    <!-- Extra Services (Hidden initially) -->
+    <!-- EXTRA SERVICES -->
     <div class="offer-grid" id="extra-services">
+
         <div class="offer-card">
             <span class="offer-num">05</span>
             <h3>Laser Treatments</h3>
-            <p>High-precision results for hair removal and resurfacing.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Laser Treatments')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Precision laser resurfacing and hair removal.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Laser Treatments')">
+                EXPLORE →
+            </div>
         </div>
+
         <div class="offer-card">
             <span class="offer-num">06</span>
             <h3>Anti-Aging</h3>
-            <p>Non-surgical treatments to restore youthful radiance.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Anti-Aging')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Advanced anti-aging therapies for youthful glow.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Anti-Aging')">
+                EXPLORE →
+            </div>
         </div>
+
         <div class="offer-card">
             <span class="offer-num">07</span>
             <h3>Personalised Derma</h3>
-            <p>Customised plans crafted after thorough skin analysis.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Personalised Derma Treatment')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>Customized skincare and skin analysis plans.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Personalised Derma Treatment')">
+                EXPLORE →
+            </div>
         </div>
+
         <div class="offer-card">
             <span class="offer-num">08</span>
             <h3>Wellness Drips</h3>
-            <p>Intravenous therapy to detoxify and energise from within.</p>
-            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Wellness Drips')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+            <p>IV vitamin therapy for energy detox and hydration.</p>
+            <div class="offer-btn" onclick="getServiceDetail('Wellness Drips')">
+                EXPLORE →
+            </div>
         </div>
+
     </div>
 
+    <!-- BUTTONS -->
     <div class="btn-container">
-        <button class="gold-btn" id="seeMoreBtn" onclick="toggleSeeMore()">See More Services</button>
-        <button class="return-home" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Return to Home</button>
+
+        <button class="gold-btn" id="seeMoreBtn" onclick="toggleSeeMore()">
+            See More Services
+        </button>
+
+        <button class="return-home" onclick="returnHome()">
+            Return Home
+        </button>
+
     </div>
+
 </section>
 
+<!-- CHAT BOX -->
+<div class="chat-box" id="chatBox">
+
+    <div class="chat-header">
+        Luxury Derma Assistant
+        <span class="close-chat" onclick="closeChat()">✕</span>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+</div>
+
 <script>
-    // See More Toggle Function
-    function toggleSeeMore() {
-        const extra = document.getElementById('extra-services');
-        const btn = document.getElementById('seeMoreBtn');
-        
-        if (extra.style.display === 'grid') {
-            extra.style.display = 'none';
-            btn.innerText = 'See More Services';
-        } else {
-            extra.style.display = 'grid';
-            btn.innerText = 'Show Less';
-        }
-    }
 
-    // Updated Chatbot logic to include "Return to Home" in bot message
-    function getServiceDetail(s) {
-        const box = document.getElementById('chatBox');
-        box.style.display = 'flex';
-        
-        const msgArea = document.getElementById('chatMessages');
-        msgArea.innerHTML += `<div class="user-message">Tell me about ${s}</div>`;
-        
-        setTimeout(() => {
-            const data = servicesData[s] || "Please contact us for more details.";
-            msgArea.innerHTML += `
-                <div class="bot-message">
-                    <strong>${s} Include:</strong><br>${data}<br><br>
-                    <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
-                    <button class="opt-btn" onclick="closeChatAndHome()">🏠 Return Home</button>
-                </div>`;
-            msgArea.scrollTop = msgArea.scrollHeight;
-        }, 500);
-    }
+/* ===== SERVICE DATA ===== */
 
-    function closeChatAndHome() {
-        document.getElementById('chatBox').style.display = 'none';
-        window.scrollTo({top: 0, behavior: 'smooth'});
+const servicesData = {
+
+"Medi Facials":
+"Hydra Facial, Carbon Facial, Oxygen Facial, Meso Glow Therapy and Deep Cleansing treatments. Helps improve skin glow hydration pores acne pigmentation and dull skin.",
+
+"Hair Restoration":
+"PRP Hair Therapy, GFC Treatment, Hair Mesotherapy, Hair Growth Laser Therapy and scalp rejuvenation solutions for hair fall and thinning.",
+
+"RF & Laser Therapy":
+"Radio Frequency tightening, laser collagen stimulation, skin resurfacing, acne scar reduction and wrinkle correction with modern aesthetic technology.",
+
+"Ultherapy (HIFU)":
+"HIFU skin lifting therapy uses focused ultrasound energy for face lifting jawline contouring and skin tightening without surgery.",
+
+"Laser Treatments":
+"Laser hair removal, pigmentation correction, tattoo removal, carbon peel and advanced resurfacing procedures for smooth skin.",
+
+"Anti-Aging":
+"Botox fillers skin boosters collagen induction and advanced rejuvenation therapies for reducing wrinkles fine lines and sagging skin.",
+
+"Personalised Derma Treatment":
+"Detailed skin analysis and customized treatment plans according to acne pigmentation sensitivity hydration and aging concerns.",
+
+"Wellness Drips":
+"IV therapy with vitamins antioxidants glutathione hydration boosters and detox solutions for skin wellness and energy support."
+
+};
+
+/* ===== SEE MORE ===== */
+
+function toggleSeeMore(){
+
+    const extra = document.getElementById("extra-services");
+    const btn = document.getElementById("seeMoreBtn");
+
+    if(extra.style.display === "grid"){
+
+        extra.style.display = "none";
+        btn.innerText = "See More Services";
+
+    }else{
+
+        extra.style.display = "grid";
+        btn.innerText = "Show Less";
+
+        extra.scrollIntoView({
+            behavior:"smooth"
+        });
     }
+}
+
+/* ===== RETURN HOME ===== */
+
+function returnHome(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+/* ===== CHAT OPEN ===== */
+
+function getServiceDetail(service){
+
+    const box = document.getElementById("chatBox");
+    const messages = document.getElementById("chatMessages");
+
+    box.style.display = "flex";
+
+    messages.innerHTML += `
+        <div class="user-message">
+            Tell me about ${service}
+        </div>
+    `;
+
+    setTimeout(()=>{
+
+        messages.innerHTML += `
+            <div class="bot-message">
+                <strong>${service}</strong><br><br>
+                ${servicesData[service]}
+
+                <br><br>
+
+                <button class="opt-btn" onclick="bookNow()">
+                    📅 Book Slot
+                </button>
+
+                <button class="opt-btn" onclick="closeChatAndHome()">
+                    🏠 Return Home
+                </button>
+            </div>
+        `;
+
+        messages.scrollTop = messages.scrollHeight;
+
+    },400);
+}
+
+/* ===== BOOK ===== */
+
+function bookNow(){
+
+    alert("Booking system connected successfully!");
+}
+
+/* ===== CLOSE CHAT ===== */
+
+function closeChat(){
+
+    document.getElementById("chatBox").style.display = "none";
+}
+
+function closeChatAndHome(){
+
+    closeChat();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
 </script>
+
+</body>
+</html>
