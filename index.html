@@ -143,85 +143,63 @@
             background: #25d366; color: white; width: 60px; height: 60px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 1000;
-        }/* AI CHATBOT */
+            text-decoration: none;
+        }
 
-.ai-chat-btn{
-position:fixed;
-bottom:100px;
-right:30px;
-width:65px;
-height:65px;
-background:linear-gradient(135deg,#D4AF37,#B8860B);
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-cursor:pointer;
-z-index:9999;
-}
+        /* --- AI CHATBOT CSS --- */
+        .ai-chat-btn {
+            position: fixed; bottom: 100px; right: 30px; 
+            width: 65px; height: 65px; 
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; cursor: pointer; z-index: 9999; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            color: #000;
+        }
 
-.ai-chat-box{
-position:fixed;
-bottom:180px;
-right:30px;
-width:360px;
-height:550px;
-background:#111;
-border-radius:20px;
-overflow:hidden;
-display:none;
-flex-direction:column;
-z-index:9999;
-border:1px solid rgba(212,175,55,0.2);
-}
+        .ai-chat-box {
+            position: fixed; bottom: 180px; right: 30px; 
+            width: 350px; height: 500px; 
+            background: #111; border-radius: 20px; 
+            display: none; flex-direction: column; z-index: 9999; 
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
 
-.chat-header{
-background:#000;
-padding:18px;
-}
+        .chat-header {
+            background: #000; padding: 20px; border-bottom: 1px solid #222;
+            display: flex; justify-content: space-between; align-items: center;
+        }
 
-.chat-messages{
-flex:1;
-padding:20px;
-overflow-y:auto;
-}
+        .chat-header h4 { font-family: 'Playfair Display'; color: var(--gold); }
 
-.bot-message{
-background:#1c1c1c;
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
-}
+        .chat-messages {
+            flex: 1; padding: 20px; overflow-y: auto; 
+            display: flex; flex-direction: column; gap: 12px;
+            background: #0a0a0a;
+        }
 
-.user-message{
-background:#D4AF37;
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
-color:#000;
-text-align:right;
-}
+        .bot-message, .user-message {
+            max-width: 80%; padding: 12px; border-radius: 15px; font-size: 14px;
+        }
 
-.chat-input{
-display:flex;
-padding:10px;
-background:#000;
-}
+        .bot-message { background: #1c1c1c; color: #eee; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user-message { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
 
-.chat-input input{
-flex:1;
-padding:12px;
-background:#1b1b1b;
-border:none;
-color:#fff;
-}
+        .chat-input {
+            display: flex; padding: 15px; background: #000; border-top: 1px solid #222; gap: 10px;
+        }
 
-.chat-input button{
-padding:12px;
-background:#D4AF37;
-border:none;
-}
+        .chat-input input {
+            flex: 1; padding: 12px; background: #1b1b1b; border: none; 
+            color: #fff; border-radius: 8px; outline: none;
+        }
+
+        .chat-input button {
+            background: var(--gold); border: none; padding: 0 15px; 
+            border-radius: 8px; cursor: pointer; color: #000; font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -236,12 +214,12 @@ border:none;
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-  <li><a href="about.html">About</a></li>
-  <li><a href="services.html">Services</a></li>
-  <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
-        <button class="btn-luxury">Book Appointment</button>
+        <button class="btn-luxury" onclick="window.location.href='contact.html'">Book Appointment</button>
     </header>
 
     <section class="hero">
@@ -250,8 +228,8 @@ border:none;
             <h1>Advanced Aesthetics,<br>Timeless Confidence</h1>
             <p>Experience the pinnacle of luxury skincare and wellness at Yuva Rejuvenation clinic.</p>
             <div style="display: flex; gap: 20px;">
-                <button class="btn-luxury" style="background: var(--gold); color: #000;">Our Services</button>
-                <button class="btn-luxury">Call Us Now</button>
+                <button class="btn-luxury" style="background: var(--gold); color: #000;" onclick="window.location.href='services.html'">Our Services</button>
+                <button class="btn-luxury" onclick="window.location.href='tel:+917388868708'">Call Us Now</button>
             </div>
         </div>
 
@@ -295,7 +273,6 @@ border:none;
                 <a href="#">Learn More</a>
             </div>
             <div class="card">
-                <div class="icon-wrap"></div>
                 <i class="fas fa-flask"></i>
                 <h3>Wellness Drips</h3>
                 <p>IV Vitamin therapy to detoxify your body and boost energy levels instantly.</p>
@@ -304,7 +281,69 @@ border:none;
         </div>
     </section>
 
-    <a href="#" class="wp-btn"><i class="fab fa-whatsapp"></i></a>
+    <!-- WHATSAPP BUTTON -->
+    <a href="https://wa.me/917388868708" class="wp-btn"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- AI CHATBOT HTML -->
+    <div class="ai-chat-btn" onclick="toggleChat()">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div class="ai-chat-box" id="chatBox">
+        <div class="chat-header">
+            <h4>Yuva AI Assistant</h4>
+            <span onclick="toggleChat()" style="cursor:pointer; color:var(--gold);"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="bot-message">Namaste! Yuva Rejuvenation mein aapka swagat hai. Main aapki kaise madad kar sakta hoon?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Apna sawal likhein..." onkeypress="handleKey(event)">
+            <button onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- CHATBOT SCRIPT -->
+    <script>
+        function toggleChat() {
+            const box = document.getElementById('chatBox');
+            box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function handleKey(e) {
+            if (e.key === 'Enter') sendMsg();
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const msgArea = document.getElementById('chatMessages');
+            const val = input.value.trim();
+
+            if (val === "") return;
+
+            // User Message
+            msgArea.innerHTML += `<div class="user-message">${val}</div>`;
+            input.value = "";
+            msgArea.scrollTop = msgArea.scrollHeight;
+
+            // AI Reply Logic
+            setTimeout(() => {
+                let reply = "Dhanyawad! Hamare specialist jald hi aap se sampark karenge. Aap 'Book Appointment' button se slot bhi book kar sakte hain.";
+                
+                const query = val.toLowerCase();
+                if (query.includes("price") || query.includes("fees")) {
+                    reply = "Treatments ki starting price ₹1,500 se hoti hai. Har skin type ke liye alag plan hai.";
+                } else if (query.includes("location") || query.includes("address")) {
+                    reply = "Hum Aliganj, Lucknow mein sthit hain. Aap Contact page par map dekh sakte hain.";
+                } else if (query.includes("service") || query.includes("facial")) {
+                    reply = "Hum HydraFacial, Laser Hair Removal, aur Hair Restoration jaisi premium services dete hain.";
+                }
+
+                msgArea.innerHTML += `<div class="bot-message">${reply}</div>`;
+                msgArea.scrollTop = msgArea.scrollHeight;
+            }, 800);
+        }
+    </script>
 
 </body>
 </html>
