@@ -1,246 +1,193 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Services | Luxury Derma Clinic</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
+<!-- --- PREMIUM GOLD SERVICES SECTION --- -->
 <style>
-:root{
---gold:#D4AF37;
---black:#050505;
---dark:#111;
-}
+    :root {
+        --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FBF5B7 50%, #B8860B 100%);
+        --dark-bg: #0a0a0a;
+    }
 
-body{
-margin:0;
-font-family:Montserrat;
-background:var(--black);
-color:white;
-}
+    .offerings { 
+        padding: 100px 10%; 
+        background-color: var(--dark-bg); 
+        color: #fff;
+        text-align: center;
+    }
 
-h1,h2,h3{
-font-family:"Playfair Display";
-color:var(--gold);
-}
+    .section-header h2 { 
+        font-size: 45px; 
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+    }
 
-header{
-text-align:center;
-padding:40px 20px;
-border-bottom:1px solid #222;
-}
+    .offer-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        gap: 25px; 
+        margin-top: 50px;
+    }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
+    .offer-card { 
+        background: #111; 
+        padding: 40px 30px; 
+        border: 1px solid rgba(212, 175, 55, 0.3); 
+        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+        position: relative;
+        overflow: hidden;
+    }
 
-.section{margin:40px 0;}
+    .offer-card::before {
+        content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+        transition: 0.5s;
+    }
 
-.section-title{
-font-size:26px;
-border-left:4px solid var(--gold);
-padding-left:10px;
-margin-bottom:20px;
-}
+    .offer-card:hover::before { left: 100%; }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-}
+    .offer-card:hover { 
+        border-color: #D4AF37; 
+        transform: translateY(-10px); 
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); 
+    }
 
-.card{
-background:var(--dark);
-padding:20px;
-border-radius:12px;
-border:1px solid #222;
-position:relative;
-}
+    .offer-num { 
+        font-size: 50px; font-family: 'Playfair Display'; 
+        color: rgba(212, 175, 55, 0.1); 
+        position: absolute; top: 10px; right: 20px; 
+    }
 
-.card:hover{
-border-color:var(--gold);
-}
+    .offer-card h3 { color: #D4AF37; margin-bottom: 15px; font-size: 22px; }
+    .offer-card p { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 25px; }
 
-.num{
-position:absolute;
-top:10px;
-right:10px;
-background:var(--gold);
-color:black;
-padding:5px 10px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-}
+    /* Action Buttons */
+    .btn-container { margin-top: 50px; display: flex; justify-content: center; gap: 20px; }
+    
+    .gold-btn {
+        background: var(--gold-gradient);
+        color: #000; padding: 15px 35px; border: none;
+        font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+        cursor: pointer; transition: 0.3s; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    }
 
-button{
-margin-top:10px;
-width:100%;
-padding:10px;
-background:var(--gold);
-border:none;
-font-weight:bold;
-cursor:pointer;
-}
+    .gold-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
 
-button:hover{background:#b8962f}
+    /* Hidden Section */
+    #extra-services { display: none; }
 
-/* MODAL */
-#modal{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.8);
-}
-
-.modal-box{
-background:#111;
-width:90%;
-max-width:450px;
-margin:5% auto;
-padding:20px;
-border:1px solid var(--gold);
-border-radius:10px;
-}
-
-input,select,textarea{
-width:100%;
-padding:10px;
-margin:8px 0;
-background:#1a1a1a;
-color:white;
-border:none;
-}
-
+    .return-home {
+        background: transparent; border: 1px solid #D4AF37; color: #D4AF37;
+        padding: 15px 35px; cursor: pointer; transition: 0.3s;
+        text-transform: uppercase; font-weight: 600;
+    }
+    .return-home:hover { background: rgba(212, 175, 55, 0.1); }
 </style>
-</head>
 
-<body>
+<section class="offerings" id="services-section">
+    <div class="section-header">
+        <span style="color: #D4AF37; letter-spacing: 5px;">EXCLUSIVE SELECTIONS</span>
+        <h2>Premium Treatments, Exceptional Results</h2>
+    </div>
 
-<header>
-<h1>What We Offer</h1>
-<p>Premium Treatments, Exceptional Results</p>
-</header>
+    <!-- First 4 Services (Visible) -->
+    <div class="offer-grid">
+        <div class="offer-card">
+            <span class="offer-num">01</span>
+            <h3>Medi Facials</h3>
+            <p>Advanced skincare science for luminous, healthy skin.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Medi Facials')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="offer-card">
+            <span class="offer-num">02</span>
+            <h3>Hair Restoration</h3>
+            <p>Proven medical therapies to restore fuller, healthier hair.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Hair Restoration')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="offer-card">
+            <span class="offer-num">03</span>
+            <h3>RF & Laser Therapy</h3>
+            <p>Precision treatments for deep skin tightening and collagen renewal.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('RF & Laser Therapy')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="offer-card">
+            <span class="offer-num">04</span>
+            <h3>Ultherapy (HIFU)</h3>
+            <p>Non-surgical facelift results with deep lifting technology.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Ultherapy (HIFU)')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
 
-<div class="container">
+    <!-- Extra Services (Hidden initially) -->
+    <div class="offer-grid" id="extra-services">
+        <div class="offer-card">
+            <span class="offer-num">05</span>
+            <h3>Laser Treatments</h3>
+            <p>High-precision results for hair removal and resurfacing.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Laser Treatments')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="offer-card">
+            <span class="offer-num">06</span>
+            <h3>Anti-Aging</h3>
+            <p>Non-surgical treatments to restore youthful radiance.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Anti-Aging')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="offer-card">
+            <span class="offer-num">07</span>
+            <h3>Personalised Derma</h3>
+            <p>Customised plans crafted after thorough skin analysis.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Personalised Derma Treatment')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="offer-card">
+            <span class="offer-num">08</span>
+            <h3>Wellness Drips</h3>
+            <p>Intravenous therapy to detoxify and energise from within.</p>
+            <div class="offer-btn" style="cursor:pointer; color:#D4AF37;" onclick="getServiceDetail('Wellness Drips')">EXPLORE <i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
 
-<!-- MEDI FACIAL -->
-<div class="section">
-<div class="section-title">01 • Medi Facials</div>
-
-<div class="grid">
-
-<div class="card"><div class="num">01</div>
-<h3>Hydra Facial</h3>
-<button onclick="openBook('Hydra Facial')">Book Now</button></div>
-
-<div class="card"><div class="num">02</div>
-<h3>Meso Glow Facial</h3>
-<button onclick="openBook('Meso Glow Facial')">Book Now</button></div>
-
-<div class="card"><div class="num">03</div>
-<h3>Aqua Gold Facial</h3>
-<button onclick="openBook('Aqua Gold Facial')">Book Now</button></div>
-
-<div class="card"><div class="num">04</div>
-<h3>Carbon Peel</h3>
-<button onclick="openBook('Carbon Peel')">Book Now</button></div>
-
-</div>
-</div>
-
-</div>
-
-<!-- BOOKING MODAL -->
-<div id="modal">
-
-<div class="modal-box">
-
-<h2 style="color:gold;">Book Appointment</h2>
-
-<p id="serviceName"></p>
-
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
-<input id="email" placeholder="Email">
-
-<input type="date" id="date">
-
-<select id="slot">
-<option>10:00 AM</option>
-<option>12:00 PM</option>
-<option>02:00 PM</option>
-<option>04:00 PM</option>
-<option>06:00 PM</option>
-</select>
-
-<textarea id="msg" placeholder="Message"></textarea>
-
-<button onclick="submitBooking()">Confirm Booking</button>
-<button onclick="closeBook()" style="background:red;color:white;margin-top:10px;">Close</button>
-
-</div>
-
-</div>
+    <div class="btn-container">
+        <button class="gold-btn" id="seeMoreBtn" onclick="toggleSeeMore()">See More Services</button>
+        <button class="return-home" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Return to Home</button>
+    </div>
+</section>
 
 <script>
+    // See More Toggle Function
+    function toggleSeeMore() {
+        const extra = document.getElementById('extra-services');
+        const btn = document.getElementById('seeMoreBtn');
+        
+        if (extra.style.display === 'grid') {
+            extra.style.display = 'none';
+            btn.innerText = 'See More Services';
+        } else {
+            extra.style.display = 'grid';
+            btn.innerText = 'Show Less';
+        }
+    }
 
-let selectedService="";
+    // Updated Chatbot logic to include "Return to Home" in bot message
+    function getServiceDetail(s) {
+        const box = document.getElementById('chatBox');
+        box.style.display = 'flex';
+        
+        const msgArea = document.getElementById('chatMessages');
+        msgArea.innerHTML += `<div class="user-message">Tell me about ${s}</div>`;
+        
+        setTimeout(() => {
+            const data = servicesData[s] || "Please contact us for more details.";
+            msgArea.innerHTML += `
+                <div class="bot-message">
+                    <strong>${s} Include:</strong><br>${data}<br><br>
+                    <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
+                    <button class="opt-btn" onclick="closeChatAndHome()">🏠 Return Home</button>
+                </div>`;
+            msgArea.scrollTop = msgArea.scrollHeight;
+        }, 500);
+    }
 
-// OPEN MODAL
-function openBook(service){
-selectedService=service;
-document.getElementById("modal").style.display="block";
-document.getElementById("serviceName").innerText="Service: "+service;
-}
-
-// CLOSE
-function closeBook(){
-document.getElementById("modal").style.display="none";
-}
-
-// SUBMIT BOOKING
-function submitBooking(){
-
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let email=document.getElementById("email").value;
-let date=document.getElementById("date").value;
-let slot=document.getElementById("slot").value;
-let msg=document.getElementById("msg").value;
-
-if(!name||!phone||!date){
-alert("Fill required fields");
-return;
-}
-
-let data=JSON.parse(localStorage.getItem("bookings")||"[]");
-
-// SLOT CHECK
-let exists=data.find(b=>b.date===date && b.slot===slot);
-if(exists){
-alert("❌ Slot already booked");
-return;
-}
-
-data.push({
-service:selectedService,
-name,phone,email,date,slot,msg
-});
-
-localStorage.setItem("bookings",JSON.stringify(data));
-
-alert("✅ Booking Confirmed");
-
-closeBook();
-}
-
+    function closeChatAndHome() {
+        document.getElementById('chatBox').style.display = 'none';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
 </script>
-
-</body>
-</html>
