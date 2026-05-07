@@ -89,22 +89,6 @@
         .hero-text h1 { font-size: 70px; margin-bottom: 20px; line-height: 1.1; font-weight: 400; }
         .hero-text p { max-width: 500px; margin-bottom: 30px; font-weight: 300; color: #ccc; }
 
-        /* --- Stats Bar --- */
-        .stats-overlay {
-            position: absolute;
-            right: 10%;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .stat-item h2 { font-size: 35px; color: var(--gold); }
-        .stat-item p { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-
         /* --- Services Section --- */
         .services { padding: 100px 10%; background: #fff; color: #000; text-align: center; }
         .services .subtitle { color: var(--dark-gold); letter-spacing: 3px; font-size: 12px; font-weight: 600; }
@@ -140,18 +124,19 @@
             text-decoration: none;
         }
 
-        /* --- SMART AI CHATBOT CSS --- */
+        /* --- UPDATED DR. AI CHATBOT CSS --- */
         .ai-chat-btn {
             position: fixed; bottom: 100px; right: 30px; 
             width: 65px; height: 65px; 
-            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            background: #fff; /* Doctor Coat Look */
+            border: 2px solid var(--gold);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 30px; cursor: pointer; z-index: 9999; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            color: #000;
+            color: #2c3e50; /* Med Blue */
             transition: 0.3s;
         }
-        .ai-chat-btn:hover { transform: scale(1.1); }
+        .ai-chat-btn:hover { transform: scale(1.1); background: var(--soft-white); }
 
         .ai-chat-box {
             position: fixed; bottom: 180px; right: 30px; 
@@ -170,8 +155,7 @@
             background: #000; padding: 15px 20px; border-bottom: 1px solid #222;
             display: flex; justify-content: space-between; align-items: center;
         }
-
-        .chat-header h4 { font-family: 'Playfair Display'; color: var(--gold); margin: 0; }
+        .chat-header h4 { font-family: 'Playfair Display'; color: var(--gold); margin: 0; display: flex; align-items: center; gap: 8px; }
 
         .chat-messages {
             flex: 1; padding: 15px; overflow-y: auto; 
@@ -187,7 +171,6 @@
         .bot-message { background: #1c1c1c; color: #eee; align-self: flex-start; border-bottom-left-radius: 2px; }
         .user-message { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
 
-        /* Options Grid */
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
         .opt-btn {
             background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold);
@@ -258,23 +241,23 @@
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/917388868708" class="wp-btn"><i class="fab fa-whatsapp"></i></a>
 
-    <!-- AI CHATBOT HTML -->
-    <div class="ai-chat-btn" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></div>
+    <!-- AI CHATBOT HTML WITH DR. ICON -->
+    <div class="ai-chat-btn" onclick="toggleChat()"><i class="fas fa-user-md"></i></div>
 
     <div class="ai-chat-box" id="chatBox">
         <div class="chat-header">
-            <h4>Yuva Assistant</h4>
+            <h4><i class="fas fa-stethoscope"></i> Yuva AI Assistant</h4>
             <span onclick="toggleChat()" style="cursor:pointer; color:var(--gold);"><i class="fas fa-times"></i></span>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="bot-message">
                 <strong>✨ Welcome to Yuva Rejuvenation!</strong><br>
-                Main Dr. Vishu Kohri ka AI assistant hoon. Main aapki beauty journey mein kaise help karu?
+                Namaste! Main Dr. Yuva Assistant hoon. Main aapki kaise help kar sakta hoon?
                 <div class="options-grid">
                     <button class="opt-btn" onclick="showServices()">💎 All Services</button>
                     <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
                     <button class="opt-btn" onclick="autoQuery('📍 Address batayein')">📍 Address</button>
-                    <button class="opt-btn" onclick="autoQuery('👨‍⚕️ About Doctor')">👨‍⚕️ Doctor</button>
+                    <button class="opt-btn" onclick="autoQuery('👨‍⚕️ About Doctor')">👨‍⚕️ Experts</button>
                 </div>
             </div>
         </div>
@@ -285,15 +268,16 @@
     </div>
 
     <script>
-        const servicesData = {
-            "Medi Facials": "Hydra Facial, Meso Glow, Aqua Gold, Carbon Peel, GG Glow, Photofacial, Anti-Aging Facial.",
-            "Hair Restoration": "PRP, GFC, Hair Transplant, Hydra Keravive, Exosome Treatment.",
-            "RF & Laser": "Morpheus RF (MNRF), Scar Management, RF Skin Tightening, CO2 Laser.",
-            "Ultherapy": "Non-Surgical Facelift, Deep Skin Lifting, Body HIFU.",
-            "Laser Therapy": "LHR (Diode/Triton), Laser Toning, Q-Switch, Tribeam Laser.",
-            "Anti-Aging": "Botox, Dermal Fillers, Thread Lift, Meso Botox.",
-            "Derma Plans": "Customised Skin Analysis, Acne Protocols, Brightening Programs.",
-            "Wellness Drips": "Detox Drips, Vitamin Infusions, Immunity Boosters."
+        // DATA UPDATED FROM yuvaskinrejuvenation.com
+        const clinicData = {
+            address: "📍 SP-1, Alkapuri, Sector C, Aliganj Main Road, Lucknow - 226024.",
+            doctors: "👩‍⚕️ Senior Specialists: Dr. Kundanika Singh (MBBS, MD) aur Dr. Pragya Mishra hamari panel experts hain.",
+            services: {
+                "Skin Care": "HydraFacial, Carbon Peel, Chemical Peels, GG Glow, Photo Facial, Morpheus 8 (MNRF).",
+                "Hair Care": "GFC Therapy, PRP Treatment, Hair Transplant, Keravive, Scalp Micropigmentation.",
+                "Laser": "Laser Hair Removal (LHR), CO2 Laser for Scars, Tattoo Removal.",
+                "Anti-Aging": "Botox, Dermal Fillers, HIFU, Thread Lift."
+            }
         };
 
         function toggleChat() {
@@ -303,14 +287,26 @@
 
         function addBotMsg(text) {
             const msgArea = document.getElementById('chatMessages');
-            msgArea.innerHTML += `<div class="bot-message">${text}</div>`;
+            const div = document.createElement('div');
+            div.className = 'bot-message';
+            div.innerHTML = text;
+            msgArea.appendChild(div);
+            msgArea.scrollTop = msgArea.scrollHeight;
+        }
+
+        function addUserMsg(text) {
+            const msgArea = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'user-message';
+            div.innerText = text;
+            msgArea.appendChild(div);
             msgArea.scrollTop = msgArea.scrollHeight;
         }
 
         function showServices() {
-            addBotMsg("Hamari specialized medical services:");
+            addBotMsg("Hamari specialized services niche di gayi hain:");
             let html = `<div class="options-grid">`;
-            for (let s in servicesData) {
+            for (let s in clinicData.services) {
                 html += `<button class="opt-btn" onclick="getServiceDetail('${s}')">${s}</button>`;
             }
             html += `</div>`;
@@ -318,15 +314,15 @@
         }
 
         function getServiceDetail(s) {
-            document.getElementById('chatMessages').innerHTML += `<div class="user-message">${s}</div>`;
+            addUserMsg(s);
             setTimeout(() => {
-                addBotMsg(`<strong>${s}:</strong> ${servicesData[s]}<br><br>Kya aap is treatment ke liye slot book karna chahte hain?`);
+                addBotMsg(`<strong>${s}:</strong><br>${clinicData.services[s]}<br><br>Kya aap appointment book karna chahte hain?`);
             }, 500);
         }
 
         function askBooking() {
-            addBotMsg("📅 <strong>Slot Booking:</strong><br>Direct WhatsApp par apna slot aur timing confirm karein:");
-            addBotMsg(`<button class="opt-btn" style="width:100%" onclick="window.open('https://wa.me/917388868708?text=Hello Dr. Vishu, I want to book a slot')">Confirm on WhatsApp</button>`);
+            addBotMsg("📅 <strong>Appointment:</strong><br>Direct WhatsApp par message karke apna timing confirm karein:");
+            addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white; border:none;" onclick="window.open('https://wa.me/917388868708?text=Hello, I want to book an appointment at Yuva Rejuvenation.')">Book via WhatsApp</button>`);
         }
 
         function autoQuery(text) {
@@ -336,30 +332,27 @@
 
         function sendMsg() {
             const input = document.getElementById('chatInput');
-            const msgArea = document.getElementById('chatMessages');
             const val = input.value.trim();
             if (!val) return;
 
-            msgArea.innerHTML += `<div class="user-message">${val}</div>`;
+            addUserMsg(val);
             input.value = "";
-            msgArea.scrollTop = msgArea.scrollHeight;
-
+            
             setTimeout(() => {
                 let lowerVal = val.toLowerCase();
-                if (lowerVal.includes("address") || lowerVal.includes("location")) {
-                    addBotMsg("📍 **Address:** Sector B, Aliganj, Lucknow. Timing: 10 AM - 8 PM.");
-                } else if (lowerVal.includes("doctor") || lowerVal.includes("naam")) {
-                    addBotMsg("👨‍⚕️ **Dr. Vishu Kohri:** Expert in Advanced Aesthetics & Skin Rejuvenation.");
-                } else if (lowerVal.includes("book") || lowerVal.includes("slot") || lowerVal.includes("appointment")) {
-                    askBooking();
-                } else if (lowerVal.includes("service")) {
+                if (lowerVal.includes("address") || lowerVal.includes("location") || lowerVal.includes("kahan")) {
+                    addBotMsg(clinicData.address);
+                } else if (lowerVal.includes("doctor") || lowerVal.includes("expert") || lowerVal.includes("naam")) {
+                    addBotMsg(clinicData.doctors);
+                } else if (lowerVal.includes("service") || lowerVal.includes("treatment")) {
                     showServices();
+                } else if (lowerVal.includes("book") || lowerVal.includes("appointment")) {
+                    askBooking();
                 } else {
-                    addBotMsg("Main Yuva AI hoon. Aap services dekh sakte hain ya slot book kar sakte hain.");
+                    addBotMsg("Main aapki help ke liye yahan hoon. Aap services dekh sakte hain ya direct humse baat kar sakte hain.");
                 }
             }, 800);
         }
     </script>
-
 </body>
 </html>
