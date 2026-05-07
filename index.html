@@ -211,13 +211,19 @@
         <div class="chat-messages" id="chatMessages"></div>
         <div id="botTyping" class="typing">Assistant is typing...</div>
         <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Sawal pucheinge..." onkeypress="if(event.key==='Enter') sendMsg()">
+            <input type="text" id="chatInput" placeholder="Type here..." onkeypress="if(event.key==='Enter') sendMsg()">
             <button onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        let isWaitingForPhone = false;
+        let chatState = {
+            step: "idle", // idle, name, phone
+            userName: "",
+            userPhone: "",
+            selectedService: "Not Selected",
+            selectedDr: "Not Selected"
+        };
 
         const clinicData = {
             address: "📍 <b>Clinic Address:</b> SP-1, Alkapuri, Sector C, Aliganj Main Road, Lucknow - 226024.",
@@ -248,7 +254,7 @@
 
         function initGreeting() {
             showTyping(() => {
-                addBotMsg(`<strong>✨ Welcome to Yuva!</strong><br>Namaste! Main Yuva Assistant hoon. Main aapki kaise help kar sakta hoon?
+                addBotMsg(`<strong>✨ Welcome to Yuva!</strong><br>Main Yuva Assistant hoon. Main aapki kaise help kar sakta hoon?
                 <div class="options-grid">
                     <button class="opt-btn" onclick="showServices()">💎 All Services</button>
                     <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
@@ -293,32 +299,39 @@
 
         function getServiceDetail(s) {
             if(document.getElementById('chatBox').style.display !== 'flex') toggleChat();
+            chatState.selectedService = s;
             addUserMsg(s);
-            showTyping(() => { addBotMsg(`<strong>${s}:</strong><br>${clinicData.services[s]}`); });
+            showTyping(() => { 
+                addBotMsg(`<strong>${s}:</strong><br>${clinicData.services[s]}<br><br><button class="opt-btn" style="width:100%" onclick="showDoctors()">👨‍⚕️ Select Doctor for ${s}</button>`); 
+            });
         }
 
         function showDoctors() {
             addUserMsg("Choose Dr.");
             showTyping(() => {
-                addBotMsg("<b>Choose Dr.</b>");
+                addBotMsg("<b>Kiske saath appointment book karna chahenge?</b>");
                 let html = `<div class="options-grid">
-                    <button class="opt-btn" onclick="getDoc('Dr. Kundanika Singh')">Dr. Kundanika Singh</button>
-                    <button class="opt-btn" onclick="getDoc('Dr. Pragya Mishra')">Dr. Pragya Mishra</button>
+                    <button class="opt-btn" onclick="selectDoc('Dr. Kundanika Singh')">Dr. Kundanika Singh</button>
+                    <button class="opt-btn" onclick="selectDoc('Dr. Pragya Mishra')">Dr. Pragya Mishra</button>
                 </div>`;
                 addBotMsg(html);
             });
         }
 
-        function getDoc(name) {
+        function selectDoc(name) {
+            chatState.selectedDr = name;
             addUserMsg(name);
-            showTyping(() => { addBotMsg(clinicData.doctors[name]); });
+            showTyping(() => {
+                addBotMsg(`${clinicData.doctors[name]}<br><br><b>Aage badhne ke liye apna Poora Naam batayein:</b>`);
+                chatState.step = "name";
+            });
         }
 
         function askBooking() {
-            addUserMsg("Book Slot");
+            addUserMsg("Book Appointment");
             showTyping(() => {
-                addBotMsg("Apna <b>Mobile Number</b> type karein taaki hum aapse contact kar sakein:");
-                isWaitingForPhone = true;
+                addBotMsg("Zaroor! Sabse pehle aap Treatment ya Doctor select karein:");
+                showServices();
             });
         }
 
@@ -330,23 +343,34 @@
             if (!val) return;
             addUserMsg(val); input.value = "";
 
-            if(isWaitingForPhone) {
+            if(chatState.step === "name") {
+                chatState.userName = val;
                 showTyping(() => {
-                    addBotMsg("Shukriya! Hum jald hi aapse baat karenge.");
-                    addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white; border:none;" onclick="window.open('https://wa.me/917388868708?text=I want to book an appointment. My number is ${val}')">Confirm on WhatsApp</button>`);
-                    isWaitingForPhone = false;
+                    addBotMsg(`Shukriya ${val}! Ab apna **Mobile Number** type karein:`);
+                    chatState.step = "phone";
+                });
+                return;
+            }
+
+            if(chatState.step === "phone") {
+                chatState.userPhone = val;
+                showTyping(() => {
+                    addBotMsg("Excellent! Aapki details ready hain. Niche button par click karke WhatsApp par finalize karein.");
+                    const finalMsg = encodeURIComponent(`Hello Yuva Rejuvenation,\n\nI want to book an appointment with all details:\n\n👤 *Name:* ${chatState.userName}\n📞 *Phone:* ${chatState.userPhone}\n✨ *Service:* ${chatState.selectedService}\n👨‍⚕️ *Doctor:* ${chatState.selectedDr}`);
+                    addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white; border:none;" onclick="window.open('https://wa.me/917388868708?text=${finalMsg}')"><i class="fab fa-whatsapp"></i> Confirm on WhatsApp</button>`);
+                    chatState.step = "idle";
                 });
                 return;
             }
 
             showTyping(() => {
                 let low = val.toLowerCase();
-                if (low.includes("address") || low.includes("location") || low.includes("kaha")) addBotMsg(clinicData.address);
-                else if (low.includes("phone") || low.includes("number") || low.includes("contact") || low.includes("mobile")) addBotMsg(clinicData.phone);
+                if (low.includes("address")) addBotMsg(clinicData.address);
                 else if (low.includes("doctor") || low.includes("dr")) showDoctors();
-                else if (low.includes("service")) showServices();
+                else if (low.includes("number") || low.includes("phone")) addBotMsg(clinicData.phone);
                 else if (low.includes("book")) askBooking();
-                else addBotMsg("Main aapki treatments, doctors ya clinic ki jankari mein help kar sakta hoon.");
+                else if (low.includes("service")) showServices();
+                else addBotMsg("Main aapki treatments, doctors aur booking mein help kar sakta hoon.");
             });
         }
     </script>
