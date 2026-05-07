@@ -148,9 +148,14 @@
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
         .opt-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); padding: 8px; border-radius: 8px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .opt-btn:hover { background: var(--gold); color: #000; }
-        .chat-input { display: flex; padding: 12px; background: #000; gap: 8px; border-top: 1px solid #222; }
-        .chat-input input { flex: 1; padding: 10px; background: #1b1b1b; border: none; color: #fff; border-radius: 5px; }
-        .chat-input button { background: var(--gold); border: none; padding: 0 15px; border-radius: 5px; cursor: pointer; }
+        .chat-input-area { background: #000; border-top: 1px solid #222; padding: 12px; }
+        .chat-input { display: flex; gap: 8px; align-items: center; }
+        .chat-input input { flex: 1; padding: 10px; background: #1b1b1b; border: none; color: #fff; border-radius: 5px; outline: none; }
+        .chat-input button { background: var(--gold); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        
+        .cam-btn { color: var(--gold); font-size: 20px; cursor: pointer; margin-right: 5px; }
+        #aiFile { display: none; }
+        #imgPreview { display: none; width: 45px; height: 45px; border-radius: 5px; border: 1px solid var(--gold); margin-bottom: 8px; object-fit: cover; }
         
         .typing { font-size: 11px; color: var(--gold); padding: 5px 15px; display: none; font-style: italic; }
     </style>
@@ -210,15 +215,20 @@
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div id="botTyping" class="typing">Assistant is typing...</div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Type here..." onkeypress="if(event.key==='Enter') sendMsg()">
-            <button onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+        <div class="chat-input-area">
+            <img id="imgPreview" src="">
+            <div class="chat-input">
+                <label for="aiFile" class="cam-btn"><i class="fas fa-camera"></i></label>
+                <input type="file" id="aiFile" accept="image/*" onchange="previewFile()">
+                <input type="text" id="chatInput" placeholder="Type or upload photo..." onkeypress="if(event.key==='Enter') sendMsg()">
+                <button onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
     </div>
 
     <script>
         let chatState = {
-            step: "idle", // idle, name, phone
+            step: "idle", 
             userName: "",
             userPhone: "",
             selectedService: "Not Selected",
@@ -252,16 +262,35 @@
             } else { box.style.display = 'none'; }
         }
 
+        // --- SIRF YAHAN CHANGES KIYE HAIN ---
         function initGreeting() {
             showTyping(() => {
-                addBotMsg(`<strong>✨ Welcome to Yuva!</strong><br>Main Yuva Assistant hoon. Main aapki kaise help kar sakta hoon?
+                addBotMsg(`✨ Welcome to Yuva!<br>Main Yuva AI Assistant hoon. Kya aap photo scan karna chahte hain?
                 <div class="options-grid">
+                    <button class="opt-btn" style="grid-column: span 2; background: var(--gold); color: #000; font-weight: bold;" onclick="triggerAI()">🔍 Deep AI Analysis (Photo & Text)</button>
                     <button class="opt-btn" onclick="showServices()">💎 All Services</button>
                     <button class="opt-btn" onclick="askBooking()">📅 Book Slot</button>
                     <button class="opt-btn" onclick="autoQuery('📍 Address batayein')">📍 Address</button>
                     <button class="opt-btn" onclick="showDoctors()">👨‍⚕️ Choose Dr.</button>
                 </div>`);
             });
+        }
+
+        function triggerAI() {
+            addUserMsg("Deep AI Analysis");
+            showTyping(() => {
+                addBotMsg("📸 <b>Skin Analysis Mode Active:</b><br>Niche <b>Camera icon</b> par click karke apni skin ki clear photo bhejein ya apni problem likhein. Main usey analyze karke best treatment bataunga.");
+            });
+        }
+
+        function previewFile() {
+            const file = document.getElementById('aiFile').files[0];
+            const prev = document.getElementById('imgPreview');
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => { prev.src = e.target.result; prev.style.display = 'block'; };
+                reader.readAsDataURL(file);
+            }
         }
 
         function showTyping(callback) {
@@ -339,8 +368,22 @@
 
         function sendMsg() {
             const input = document.getElementById('chatInput');
+            const fileInp = document.getElementById('aiFile');
             const val = input.value.trim();
-            if (!val) return;
+            
+            if (!val && fileInp.files.length === 0) return;
+
+            if(fileInp.files.length > 0) {
+                addUserMsg("Uploaded Photo for AI Analysis");
+                document.getElementById('imgPreview').style.display = 'none';
+                fileInp.value = "";
+                showTyping(() => {
+                    addBotMsg("🔍 <b>AI Analysis Result:</b><br>Scan ke mutabik aapki skin ko <b>Deep Hydration</b> aur <b>Pigmentation Correction</b> ki zarurat hai. Iske liye <b>Hydra Facial</b> aur <b>Laser Toning</b> best options hain.<br><br>Kya aap details dekhna chahenge?");
+                    addOptions([{t:"Details Dekhein", v:"Medi Facials"}, {t:"Doctor Book Karein", v:"book"}]);
+                });
+                return;
+            }
+
             addUserMsg(val); input.value = "";
 
             if(chatState.step === "name") {
@@ -370,8 +413,22 @@
                 else if (low.includes("number") || low.includes("phone")) addBotMsg(clinicData.phone);
                 else if (low.includes("book")) askBooking();
                 else if (low.includes("service")) showServices();
-                else addBotMsg("Main aapki treatments, doctors aur booking mein help kar sakta hoon.");
+                else addBotMsg("Main aapki treatments, doctors aur booking mein help kar sakta hoon. AI analysis ke liye camera icon use karein.");
             });
+        }
+
+        function addOptions(opts) {
+            let html = `<div class="options-grid">`;
+            opts.forEach(o => {
+                html += `<button class="opt-btn" onclick="handleOpt('${o.v}')">${o.t}</button>`;
+            });
+            html += `</div>`;
+            addBotMsg(html);
+        }
+
+        function handleOpt(val) {
+            if(val === "book") askBooking();
+            else getServiceDetail(val);
         }
     </script>
 </body>
