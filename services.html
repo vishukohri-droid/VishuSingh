@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
+/* CSS remains exactly the same to preserve your design */
 *{
 margin:0;
 padding:0;
@@ -24,18 +24,15 @@ overflow-x:hidden;
 }
 
 /* ===== SCROLLBAR ===== */
-
 ::-webkit-scrollbar{
 width:8px;
 }
-
 ::-webkit-scrollbar-thumb{
 background:#D4AF37;
 border-radius:10px;
 }
 
 /* ===== NAVBAR ===== */
-
 nav{
 position:fixed;
 top:0;
@@ -77,7 +74,6 @@ color:#D4AF37;
 }
 
 /* ===== HERO ===== */
-
 .hero{
 height:100vh;
 display:flex;
@@ -85,7 +81,6 @@ justify-content:center;
 align-items:center;
 text-align:center;
 padding:0 10%;
-/* New Background image for Hydra Facial */
 background:
 linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.85)),
 url('https://images.unsplash.com/photo-1610309995544-7f15456c8052?q=80&w=1920&auto=format&fit=crop');
@@ -142,8 +137,6 @@ color:#D4AF37;
 cursor:pointer;
 }
 
-/* ===== SECTIONS ===== */
-
 section{
 padding:100px 8%;
 }
@@ -165,8 +158,6 @@ margin-bottom:15px;
 .section-title p{
 color:#aaa;
 }
-
-/* ===== SERVICES ===== */
 
 .grid{
 display:grid;
@@ -208,8 +199,6 @@ font-weight:700;
 cursor:pointer;
 }
 
-/* ===== DOCTORS ===== */
-
 .doctor-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -223,8 +212,6 @@ text-align:center;
 border:1px solid rgba(212,175,55,0.2);
 }
 
-/* Removed doctor image styling as images are removed from HTML */
-
 .doctor-card h3{
 color:#D4AF37;
 margin-bottom:10px;
@@ -234,8 +221,6 @@ margin-bottom:10px;
 color:#bbb;
 line-height:1.7;
 }
-
-/* ===== GALLERY ===== */
 
 .gallery{
 display:grid;
@@ -254,8 +239,6 @@ transition:0.4s;
 .gallery img:hover{
 transform:scale(1.03);
 }
-
-/* ===== BOOKING ===== */
 
 .booking-form{
 max-width:700px;
@@ -285,8 +268,6 @@ font-weight:700;
 cursor:pointer;
 }
 
-/* ===== CONTACT ===== */
-
 .contact-box{
 background:#111;
 padding:40px;
@@ -299,8 +280,6 @@ text-align:center;
 color:#D4AF37;
 margin-bottom:20px;
 }
-
-/* ===== CHATBOT ===== */
 
 .chatbot{
 position:fixed;
@@ -365,8 +344,6 @@ cursor:pointer;
 font-weight:700;
 }
 
-/* ===== FLOAT BUTTONS ===== */
-
 .chat-open{
 position:fixed;
 right:20px;
@@ -398,8 +375,6 @@ color:#fff;
 z-index:999;
 }
 
-/* ===== FOOTER ===== */
-
 footer{
 padding:50px 8%;
 background:#000;
@@ -412,210 +387,122 @@ color:#D4AF37;
 margin-bottom:15px;
 }
 
-/* ===== MOBILE ===== */
-
 @media(max-width:768px){
-
-.hero-content h1{
-font-size:48px;
+.hero-content h1{ font-size:48px; }
+nav ul{ display:none; }
+.section-title h2{ font-size:36px; }
+.chatbot{ width:92%; right:4%; }
 }
-
-nav ul{
-display:none;
-}
-
-.section-title h2{
-font-size:36px;
-}
-
-.chatbot{
-width:92%;
-right:4%;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- ===== NAV ===== -->
-
+<!-- ===== NAV (FIXED LINKS) ===== -->
 <nav>
-
 <div class="logo">Yuva Rejuvenation</div>
-
 <ul>
-<li><a href="#home">Home</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#doctors">Doctors</a></li>
-<li><a href="#gallery">Gallery</a></li>
-<li><a href="#booking">Booking</a></li>
-<li><a href="#contact">Contact</a></li>
+    <!-- Yahan index.html lagaya hai taaki home page par ja sakein -->
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#doctors">Doctors</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#booking">Booking</a></li>
+    <li><a href="#contact">Contact</a></li>
 </ul>
-
 </nav>
 
 <!-- ===== HERO ===== -->
-
 <section class="hero" id="home">
-
 <div class="hero-content">
-
 <h1>Luxury Skin & Hair Rejuvenation Clinic</h1>
-
-<p>
-Advanced dermatology laser aesthetics anti-aging and premium skincare treatments with world-class care and modern technology.
-</p>
-
+<p>Advanced dermatology laser aesthetics anti-aging and premium skincare treatments with world-class care and modern technology.</p>
 <div class="hero-btns">
-
-<button class="gold-btn" onclick="scrollBooking()">
-Book Appointment
-</button>
-
-<button class="outline-btn" onclick="openChat()">
-AI Consultation
-</button>
-
+<button class="gold-btn" onclick="scrollBooking()">Book Appointment</button>
+<button class="outline-btn" onclick="openChat()">AI Consultation</button>
 </div>
-
 </div>
-
 </section>
 
 <!-- ===== SERVICES ===== -->
-
 <section id="services">
-
 <div class="section-title">
 <h2>Premium Treatments</h2>
 <p>Luxury skincare and advanced dermatology procedures.</p>
 </div>
-
 <div class="grid">
-
 <div class="card">
 <h3>Hydra Facial</h3>
 <p>Deep cleansing hydration glow enhancement and pore purification treatment.</p>
 <button onclick="serviceInfo('Hydra Facial')">Explore</button>
 </div>
-
 <div class="card">
 <h3>Laser Hair Removal</h3>
 <p>Advanced painless laser hair reduction technology.</p>
 <button onclick="serviceInfo('Laser Hair Removal')">Explore</button>
 </div>
-
 <div class="card">
 <h3>PRP Hair Therapy</h3>
 <p>Hair restoration and scalp rejuvenation using PRP growth factors.</p>
 <button onclick="serviceInfo('PRP Hair Therapy')">Explore</button>
 </div>
-
 <div class="card">
 <h3>Anti Aging</h3>
 <p>Botox fillers skin tightening and collagen stimulation procedures.</p>
 <button onclick="serviceInfo('Anti Aging')">Explore</button>
 </div>
-
 <div class="card">
 <h3>Carbon Peel</h3>
 <p>Hollywood laser peel for acne oil control and instant glow.</p>
 <button onclick="serviceInfo('Carbon Peel')">Explore</button>
 </div>
-
 <div class="card">
 <h3>HIFU Facelift</h3>
 <p>Non surgical facelift and jawline contouring treatment.</p>
 <button onclick="serviceInfo('HIFU Facelift')">Explore</button>
 </div>
-
 </div>
-
 </section>
 
-<!-- ===== DOCTORS ===== -->
-
+<!-- Sections remain the same as your original file -->
 <section id="doctors">
-
 <div class="section-title">
 <h2>Meet Our Experts</h2>
 <p>Experienced aesthetic and dermatology specialists.</p>
 </div>
-
 <div class="doctor-grid">
-
 <div class="doctor-card">
-
-<!-- Doctor photo removed -->
-
 <h3>Dr. Kundanika Singh</h3>
-
-<p>
-MD Dermatology <br>
-Aesthetic Medicine & Laser Specialist <br>
-10+ Years Experience
-</p>
-
+<p>MD Dermatology <br> Aesthetic Medicine & Laser Specialist <br> 10+ Years Experience</p>
 </div>
-
 <div class="doctor-card">
-
-<!-- Doctor photo removed -->
-
 <h3>Dr. Pragya Mishra</h3>
-
-<p>
-Advanced Skin & Laser Treatments Specialist <br>
-Luxury Skin Rejuvenation Expert
-</p>
-
+<p>Advanced Skin & Laser Treatments Specialist <br> Luxury Skin Rejuvenation Expert</p>
 </div>
-
 </div>
-
 </section>
 
-<!-- ===== GALLERY ===== -->
-
 <section id="gallery">
-
 <div class="section-title">
 <h2>Clinic Gallery</h2>
 <p>Luxury treatment environment and advanced technology.</p>
 </div>
-
 <div class="gallery">
-
 <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop">
-
 <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1200&auto=format&fit=crop">
-
 <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
-
 </div>
-
 </section>
 
-<!-- ===== BOOKING ===== -->
-
 <section id="booking">
-
 <div class="section-title">
 <h2>Book Appointment</h2>
 <p>Reserve your premium consultation today.</p>
 </div>
-
 <div class="booking-form">
-
 <input type="text" placeholder="Full Name">
-
 <input type="tel" placeholder="Phone Number">
-
 <input type="email" placeholder="Email Address">
-
 <select>
 <option>Select Treatment</option>
 <option>Hydra Facial</option>
@@ -623,239 +510,87 @@ Luxury Skin Rejuvenation Expert
 <option>PRP Hair Therapy</option>
 <option>Anti Aging</option>
 </select>
-
 <input type="date">
-
 <textarea rows="5" placeholder="Additional Notes"></textarea>
-
-<button onclick="bookingSuccess()">
-Confirm Booking
-</button>
-
+<button onclick="bookingSuccess()">Confirm Booking</button>
 </div>
-
 </section>
 
-<!-- ===== CONTACT ===== -->
-
 <section id="contact">
-
 <div class="section-title">
 <h2>Contact Us</h2>
 <p>Luxury skincare clinic in Lucknow.</p>
 </div>
-
 <div class="contact-box">
-
 <h3>Yuva Rejuvenation Clinic</h3>
-
-📍 SP-1, Alkapuri, Sector C, Aliganj Main Road, Ekta Vihar, Chandralok, Lucknow, Uttar Pradesh 226024
-
-<br><br>
-
-📞 +91 7388868708
-
-<br><br>
-
-🕒 Monday – Saturday : 10 AM – 7 PM
-
-<br><br>
-
+📍 SP-1, Alkapuri, Sector C, Aliganj Main Road, Ekta Vihar, Chandralok, Lucknow, Uttar Pradesh 226024<br><br>
+📞 +91 7388868708<br><br>
+🕒 Monday – Saturday : 10 AM – 7 PM<br><br>
 🌐 www.yuvaskinrejuvenation.com
-
 </div>
-
 </section>
 
-<!-- ===== FOOTER ===== -->
-
 <footer>
-
 <h3>Yuva Rejuvenation</h3>
-
-<p>
-Luxury Skin Hair & Laser Clinic
-</p>
-
+<p>Luxury Skin Hair & Laser Clinic</p>
 </footer>
 
-<!-- ===== FLOAT BUTTONS ===== -->
-
-<a href="https://wa.me/917388868708" class="whatsapp">
-💬
-</a>
-
-<button class="chat-open" onclick="openChat()">
-🤖
-</button>
-
-<!-- ===== CHATBOT ===== -->
+<a href="https://wa.me/917388868708" class="whatsapp">💬</a>
+<button class="chat-open" onclick="openChat()">🤖</button>
 
 <div class="chatbot" id="chatbot">
-
-<div class="chat-header">
-Yuva AI Assistant
-</div>
-
+<div class="chat-header">Yuva AI Assistant</div>
 <div class="chat-body" id="chatBody">
-
-<div class="msg bot">
-Hello 👋 Welcome to Yuva Rejuvenation Clinic.
-Ask about treatments pricing booking or skincare.
+<div class="msg bot">Hello 👋 Welcome to Yuva Rejuvenation Clinic. Ask about treatments pricing booking or skincare.</div>
 </div>
-
-</div>
-
 <div class="chat-input">
-
 <input type="text" id="userInput" placeholder="Type your message...">
-
-<button onclick="sendMessage()">
-Send
-</button>
-
+<button onclick="sendMessage()">Send</button>
 </div>
-
 </div>
 
 <script>
-
-/* ===== OPEN CHAT ===== */
-
-function openChat(){
-document.getElementById("chatbot").style.display="flex";
-}
-
-/* ===== BOOKING ===== */
-
-function bookingSuccess(){
-alert("Appointment Booked Successfully!");
-}
-
-/* ===== SCROLL ===== */
-
-function scrollBooking(){
-document.getElementById("booking").scrollIntoView({
-behavior:"smooth"
-});
-}
-
-/* ===== SERVICE DETAILS ===== */
+function openChat(){ document.getElementById("chatbot").style.display="flex"; }
+function bookingSuccess(){ alert("Appointment Booked Successfully!"); }
+function scrollBooking(){ document.getElementById("booking").scrollIntoView({ behavior:"smooth" }); }
 
 function serviceInfo(service){
-
 openChat();
-
 const body=document.getElementById("chatBody");
-
-body.innerHTML+=`
-<div class="msg user">
-Tell me about ${service}
-</div>
-`;
-
+body.innerHTML+=`<div class="msg user">Tell me about ${service}</div>`;
 let reply="";
-
-if(service==="Hydra Facial"){
-reply="Hydra Facial deeply cleanses hydrates and brightens the skin using advanced vortex technology.";
-}
-
-else if(service==="Laser Hair Removal"){
-reply="Laser Hair Removal safely reduces unwanted hair permanently with painless technology.";
-}
-
-else if(service==="PRP Hair Therapy"){
-reply="PRP Hair Therapy stimulates natural hair growth and reduces hair fall.";
-}
-
-else if(service==="Anti Aging"){
-reply="Anti-aging procedures reduce wrinkles fine lines and improve skin firmness.";
-}
-
-else if(service==="Carbon Peel"){
-reply="Carbon Peel controls oil acne pigmentation and gives instant Hollywood glow.";
-}
-
-else if(service==="HIFU Facelift"){
-reply="HIFU facelift lifts and tightens skin naturally without surgery.";
-}
-
+if(service==="Hydra Facial"){ reply="Hydra Facial deeply cleanses hydrates and brightens the skin using advanced vortex technology."; }
+else if(service==="Laser Hair Removal"){ reply="Laser Hair Removal safely reduces unwanted hair permanently with painless technology."; }
+else if(service==="PRP Hair Therapy"){ reply="PRP Hair Therapy stimulates natural hair growth and reduces hair fall."; }
+else if(service==="Anti Aging"){ reply="Anti-aging procedures reduce wrinkles fine lines and improve skin firmness."; }
+else if(service==="Carbon Peel"){ reply="Carbon Peel controls oil acne pigmentation and gives instant Hollywood glow."; }
+else if(service==="HIFU Facelift"){ reply="HIFU facelift lifts and tightens skin naturally without surgery."; }
 setTimeout(()=>{
-
-body.innerHTML+=`
-<div class="msg bot">
-${reply}
-</div>
-`;
-
+body.innerHTML+=`<div class="msg bot">${reply}</div>`;
 body.scrollTop=body.scrollHeight;
-
 },500);
-
 }
-
-/* ===== CHATBOT ===== */
 
 function sendMessage(){
-
 const input=document.getElementById("userInput");
-
 const text=input.value.trim();
-
 if(text==="") return;
-
 const body=document.getElementById("chatBody");
-
-body.innerHTML+=`
-<div class="msg user">
-${text}
-</div>
-`;
-
+body.innerHTML+=`<div class="msg user">${text}</div>`;
 let reply="";
-
 const msg=text.toLowerCase();
-
-if(msg.includes("price")){
-reply="Treatment prices start from ₹1999 depending on treatment type.";
-}
-
-else if(msg.includes("hydra")){
-reply="Hydra Facial gives instant glow deep cleansing and hydration.";
-}
-
-else if(msg.includes("laser")){
-reply="We provide advanced laser treatments for hair removal pigmentation and resurfacing.";
-}
-
-else if(msg.includes("hair")){
-reply="We provide PRP Hair Therapy Mesotherapy and Hair Laser procedures.";
-}
-
-else if(msg.includes("booking")){
-reply="You can easily book your appointment from the booking section.";
-}
-
-else{
-reply="Our clinic team will contact you shortly for consultation.";
-}
-
+if(msg.includes("price")){ reply="Treatment prices start from ₹1999 depending on treatment type."; }
+else if(msg.includes("hydra")){ reply="Hydra Facial gives instant glow deep cleansing and hydration."; }
+else if(msg.includes("laser")){ reply="We provide advanced laser treatments for hair removal pigmentation and resurfacing."; }
+else if(msg.includes("hair")){ reply="We provide PRP Hair Therapy Mesotherapy and Hair Laser procedures."; }
+else if(msg.includes("booking")){ reply="You can easily book your appointment from the booking section."; }
+else{ reply="Our clinic team will contact you shortly for consultation."; }
 setTimeout(()=>{
-
-body.innerHTML+=`
-<div class="msg bot">
-${reply}
-</div>
-`;
-
+body.innerHTML+=`<div class="msg bot">${reply}</div>`;
 body.scrollTop=body.scrollHeight;
-
 },500);
-
 input.value="";
-
 }
-
 </script>
 
 </body>
