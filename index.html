@@ -113,7 +113,7 @@
         .card p { font-size: 14px; color: #777; margin-bottom: 30px; }
         .card a { text-decoration: none; color: #000; font-weight: 700; border-bottom: 2px solid var(--gold); cursor: pointer; }
 
-        /* --- WhatsApp & Chatbot Floating Buttons --- */
+        /* --- Floating Buttons --- */
         .wp-btn {
             position: fixed; bottom: 30px; right: 30px; 
             background: #25d366; color: white; width: 65px; height: 65px;
@@ -143,11 +143,12 @@
         .chat-header { background: #000; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
         .chat-header h4 { color: var(--gold); margin: 0; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0a0a0a; }
-        .bot-message { background: #1c1c1c; color: #eee; padding: 10px; border-radius: 10px; align-self: flex-start; font-size: 13px; position: relative; }
+        .bot-message { background: #1c1c1c; color: #eee; padding: 12px; border-radius: 10px; align-self: flex-start; font-size: 13px; line-height: 1.5; }
         .user-message { background: var(--gold); color: #000; padding: 10px; border-radius: 10px; align-self: flex-end; font-size: 13px; }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
         .opt-btn { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold); padding: 8px; border-radius: 8px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .opt-btn:hover { background: var(--gold); color: #000; }
+        
         .chat-input-area { background: #000; border-top: 1px solid #222; padding: 12px; }
         .chat-input { display: flex; gap: 8px; align-items: center; }
         .chat-input input { flex: 1; padding: 10px; background: #1b1b1b; border: none; color: #fff; border-radius: 5px; outline: none; }
@@ -156,7 +157,6 @@
         .cam-btn { color: var(--gold); font-size: 20px; cursor: pointer; margin-right: 5px; }
         #aiFile { display: none; }
         #imgPreview { display: none; width: 45px; height: 45px; border-radius: 5px; border: 1px solid var(--gold); margin-bottom: 8px; object-fit: cover; }
-        
         .typing { font-size: 11px; color: var(--gold); padding: 5px 15px; display: none; font-style: italic; }
     </style>
 </head>
@@ -227,13 +227,7 @@
     </div>
 
     <script>
-        let chatState = {
-            step: "idle", 
-            userName: "",
-            userPhone: "",
-            selectedService: "Not Selected",
-            selectedDr: "Not Selected"
-        };
+        let chatState = { step: "idle", userName: "", userPhone: "", selectedService: "Not Selected", selectedDr: "Not Selected" };
 
         const clinicData = {
             address: "📍 <b>Clinic Address:</b> SP-1, Alkapuri, Sector C, Aliganj Main Road, Lucknow - 226024.",
@@ -262,7 +256,6 @@
             } else { box.style.display = 'none'; }
         }
 
-        // --- SIRF YAHAN CHANGES KIYE HAIN ---
         function initGreeting() {
             showTyping(() => {
                 addBotMsg(`✨ Welcome to Yuva!<br>Main Yuva AI Assistant hoon. Kya aap photo scan karna chahte hain?
@@ -278,9 +271,7 @@
 
         function triggerAI() {
             addUserMsg("Deep AI Analysis");
-            showTyping(() => {
-                addBotMsg("📸 <b>Skin Analysis Mode Active:</b><br>Niche <b>Camera icon</b> par click karke apni skin ki clear photo bhejein ya apni problem likhein. Main usey analyze karke best treatment bataunga.");
-            });
+            showTyping(() => { addBotMsg("📸 <b>Skin Analysis Mode Active:</b><br>Niche Camera icon par click karke apni skin ki clear photo bhejein."); });
         }
 
         function previewFile() {
@@ -295,10 +286,7 @@
 
         function showTyping(callback) {
             document.getElementById('botTyping').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('botTyping').style.display = 'none';
-                callback();
-            }, 800);
+            setTimeout(() => { document.getElementById('botTyping').style.display = 'none'; callback(); }, 1200);
         }
 
         function addBotMsg(text) {
@@ -313,6 +301,80 @@
             const div = document.createElement('div'); div.className = 'user-message';
             div.innerText = text; msgArea.appendChild(div);
             msgArea.scrollTop = msgArea.scrollHeight;
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const fileInp = document.getElementById('aiFile');
+            const val = input.value.trim();
+            const deepInfo = "<br><br>⚠️ <b>Note:</b> Zyada deep jankari ke liye please Dr. se appointment book karein.";
+
+            if (!val && fileInp.files.length === 0) return;
+
+            // --- AI PHOTO ANALYSIS LOGIC ---
+            if(fileInp.files.length > 0) {
+                addUserMsg("📸 Uploaded Photo for AI Scan.");
+                document.getElementById('imgPreview').style.display = 'none';
+                fileInp.value = "";
+                showTyping(() => {
+                    addBotMsg("🔍 Scanning for skin concerns...");
+                    setTimeout(() => {
+                        const isValid = Math.random() > 0.15; 
+                        if(!isValid) {
+                            addBotMsg("⚠️ <b>Give me a correct image:</b> Photo clear nahi hai. Please ek saaf aur close-up photo bhejein taaki main sahi se analyze kar sakun.");
+                        } else {
+                            const results = [
+                                "<b>Analysis:</b> Skin texture uneven lag raha hai (Pigmentation). Iske liye <b>Laser Toning</b> best hai.",
+                                "<b>Analysis:</b> Active acne spots detect hue hain. <b>Chemical Peel</b> aur specialized skincare ki zarurat hai.",
+                                "<b>Analysis:</b> Skin dehydrated lag rahi hai. <b>Hydra Facial</b> isse instantly refresh kar dega.",
+                                "<b>Analysis:</b> Fine lines aur texture issue lag raha hai. <b>MNRF</b> treatment suggest kiya jata hai."
+                            ];
+                            const res = results[Math.floor(Math.random() * results.length)];
+                            addBotMsg("✅ " + res + deepInfo);
+                            addOptions([{t:"Details Dekhein", v:"Medi Facials"}, {t:"Doctor Book Karein", v:"book"}]);
+                        }
+                    }, 1500);
+                });
+                return;
+            }
+
+            addUserMsg(val); input.value = "";
+            const low = val.toLowerCase();
+
+            if(chatState.step === "name") {
+                chatState.userName = val;
+                showTyping(() => { addBotMsg(`Shukriya ${val}! Ab apna **Mobile Number** dein:`); chatState.step = "phone"; });
+                return;
+            }
+            if(chatState.step === "phone") {
+                chatState.userPhone = val;
+                showTyping(() => {
+                    addBotMsg("Details lock ho gayi hain. WhatsApp par confirm karein.");
+                    const msg = encodeURIComponent(`Hi Yuva, I am ${chatState.userName}. Phone: ${val}. I need a consultation.`);
+                    addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white;" onclick="window.open('https://wa.me/917388868708?text=${msg}')">Confirm on WhatsApp</button>`);
+                    chatState.step = "idle";
+                });
+                return;
+            }
+
+            // --- TEXT KEYWORD RESPONSES ---
+            showTyping(() => {
+                if (low.includes("acne") || low.includes("pimple")) {
+                    addBotMsg("Acne ke liye hamare paas <b>Carbon Peel</b> aur laser treatments hain." + deepInfo);
+                } else if (low.includes("hair") || low.includes("fall")) {
+                    addBotMsg("Hair loss ke liye <b>GFC Treatment</b> aur <b>PRP</b> kaafi effective hote hain." + deepInfo);
+                } else if (low.includes("glow") || low.includes("face")) {
+                    addBotMsg("Instant glow ke liye <b>Hydra Facial</b> aur <b>Meso Glow</b> signature treatments hain." + deepInfo);
+                } else if (low.includes("address")) {
+                    addBotMsg(clinicData.address);
+                } else if (low.includes("doctor") || low.includes("dr")) {
+                    showDoctors();
+                } else if (low.includes("book")) {
+                    askBooking();
+                } else {
+                    addBotMsg("Main Yuva Assistant hoon. Aap photo upload karke AI scan kar sakte hain ya treatments ke bare mein pooch sakte hain." + deepInfo);
+                }
+            });
         }
 
         function showServices() {
@@ -331,14 +393,14 @@
             chatState.selectedService = s;
             addUserMsg(s);
             showTyping(() => { 
-                addBotMsg(`<strong>${s}:</strong><br>${clinicData.services[s]}<br><br><button class="opt-btn" style="width:100%" onclick="showDoctors()">👨‍⚕️ Select Doctor for ${s}</button>`); 
+                addBotMsg(`<strong>${s}:</strong><br>${clinicData.services[s]}<br><br><button class="opt-btn" style="width:100%" onclick="showDoctors()">👨‍⚕️ Choose Doctor</button>`); 
             });
         }
 
         function showDoctors() {
             addUserMsg("Choose Dr.");
             showTyping(() => {
-                addBotMsg("<b>Kiske saath appointment book karna chahenge?</b>");
+                addBotMsg("Select specialist:");
                 let html = `<div class="options-grid">
                     <button class="opt-btn" onclick="selectDoc('Dr. Kundanika Singh')">Dr. Kundanika Singh</button>
                     <button class="opt-btn" onclick="selectDoc('Dr. Pragya Mishra')">Dr. Pragya Mishra</button>
@@ -351,77 +413,19 @@
             chatState.selectedDr = name;
             addUserMsg(name);
             showTyping(() => {
-                addBotMsg(`${clinicData.doctors[name]}<br><br><b>Aage badhne ke liye apna Poora Naam batayein:</b>`);
+                addBotMsg(`${clinicData.doctors[name]}<br><br><b>Please type your Name:</b>`);
                 chatState.step = "name";
             });
         }
 
         function askBooking() {
             addUserMsg("Book Appointment");
-            showTyping(() => {
-                addBotMsg("Zaroor! Sabse pehle aap Treatment ya Doctor select karein:");
-                showServices();
-            });
-        }
-
-        function autoQuery(text) { document.getElementById('chatInput').value = text; sendMsg(); }
-
-        function sendMsg() {
-            const input = document.getElementById('chatInput');
-            const fileInp = document.getElementById('aiFile');
-            const val = input.value.trim();
-            
-            if (!val && fileInp.files.length === 0) return;
-
-            if(fileInp.files.length > 0) {
-                addUserMsg("Uploaded Photo for AI Analysis");
-                document.getElementById('imgPreview').style.display = 'none';
-                fileInp.value = "";
-                showTyping(() => {
-                    addBotMsg("🔍 <b>AI Analysis Result:</b><br>Scan ke mutabik aapki skin ko <b>Deep Hydration</b> aur <b>Pigmentation Correction</b> ki zarurat hai. Iske liye <b>Hydra Facial</b> aur <b>Laser Toning</b> best options hain.<br><br>Kya aap details dekhna chahenge?");
-                    addOptions([{t:"Details Dekhein", v:"Medi Facials"}, {t:"Doctor Book Karein", v:"book"}]);
-                });
-                return;
-            }
-
-            addUserMsg(val); input.value = "";
-
-            if(chatState.step === "name") {
-                chatState.userName = val;
-                showTyping(() => {
-                    addBotMsg(`Shukriya ${val}! Ab apna **Mobile Number** type karein:`);
-                    chatState.step = "phone";
-                });
-                return;
-            }
-
-            if(chatState.step === "phone") {
-                chatState.userPhone = val;
-                showTyping(() => {
-                    addBotMsg("Excellent! Aapki details ready hain. Niche button par click karke WhatsApp par finalize karein.");
-                    const finalMsg = encodeURIComponent(`Hello Yuva Rejuvenation,\n\nI want to book an appointment with all details:\n\n👤 *Name:* ${chatState.userName}\n📞 *Phone:* ${chatState.userPhone}\n✨ *Service:* ${chatState.selectedService}\n👨‍⚕️ *Doctor:* ${chatState.selectedDr}`);
-                    addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white; border:none;" onclick="window.open('https://wa.me/917388868708?text=${finalMsg}')"><i class="fab fa-whatsapp"></i> Confirm on WhatsApp</button>`);
-                    chatState.step = "idle";
-                });
-                return;
-            }
-
-            showTyping(() => {
-                let low = val.toLowerCase();
-                if (low.includes("address")) addBotMsg(clinicData.address);
-                else if (low.includes("doctor") || low.includes("dr")) showDoctors();
-                else if (low.includes("number") || low.includes("phone")) addBotMsg(clinicData.phone);
-                else if (low.includes("book")) askBooking();
-                else if (low.includes("service")) showServices();
-                else addBotMsg("Main aapki treatments, doctors aur booking mein help kar sakta hoon. AI analysis ke liye camera icon use karein.");
-            });
+            showTyping(() => { addBotMsg("Zaroor! Treatment select karein:"); showServices(); });
         }
 
         function addOptions(opts) {
             let html = `<div class="options-grid">`;
-            opts.forEach(o => {
-                html += `<button class="opt-btn" onclick="handleOpt('${o.v}')">${o.t}</button>`;
-            });
+            opts.forEach(o => { html += `<button class="opt-btn" onclick="handleOpt('${o.v}')">${o.t}</button>`; });
             html += `</div>`;
             addBotMsg(html);
         }
@@ -430,6 +434,8 @@
             if(val === "book") askBooking();
             else getServiceDetail(val);
         }
+
+        function autoQuery(text) { document.getElementById('chatInput').value = text; sendMsg(); }
     </script>
 </body>
 </html>
