@@ -1,596 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yuva Rejuvenation | Luxury Skin & Hair Clinic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Yuva Rejuvenation Luxury Aesthetics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --black: #050505;
+            --deep-gray: #111;
+            --transition: all 0.4s ease;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--black); color: #fff; line-height: 1.6; }
 
-<style>
-/* CSS remains exactly the same to preserve your design */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-font-family:'Montserrat',sans-serif;
-}
+        /* --- Header --- */
+        header {
+            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212,175,55,0.1);
+        }
+        .logo { font-family: 'Playfair Display'; color: var(--gold); text-decoration: none; font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+        .logo span { font-size: 10px; display: block; color: #fff; letter-spacing: 5px; font-family: 'Montserrat'; }
 
-body{
-background:#050505;
-color:#fff;
-overflow-x:hidden;
-}
+        /* --- Hero --- */
+        .hero {
+            height: 45vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+            url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070');
+            background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;
+        }
+        .hero h1 { font-family: 'Playfair Display'; font-size: 45px; color: var(--gold); text-align: center; }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{
-width:8px;
-}
-::-webkit-scrollbar-thumb{
-background:#D4AF37;
-border-radius:10px;
-}
+        /* --- Services Grid --- */
+        .service-container { padding: 80px 8%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card {
+            background: var(--deep-gray); border: 1px solid #222; padding: 40px; transition: var(--transition); text-align: center;
+        }
+        .service-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+        .service-card i { font-size: 35px; color: var(--gold); margin-bottom: 20px; }
+        .service-card h3 { font-family: 'Playfair Display'; font-size: 22px; margin-bottom: 15px; }
+        .service-card p { color: #888; font-size: 13px; margin-bottom: 20px; }
+        .btn-outline { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; cursor: pointer; font-size: 11px; letter-spacing: 1px; transition: 0.3s; }
+        .btn-outline:hover { background: var(--gold); color: #000; }
 
-/* ===== NAVBAR ===== */
-nav{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-padding:20px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(12px);
-z-index:999;
-}
+        /* --- Floating Elements --- */
+        .ai-chat-btn {
+            position: fixed; bottom: 110px; right: 30px; 
+            width: 65px; height: 65px; background: #fff;
+            border: 2px solid var(--gold); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; cursor: pointer; z-index: 9999;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); color: #2c3e50;
+        }
+        .wp-btn { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-.logo{
-font-size:32px;
-font-family:'Playfair Display',serif;
-font-weight:700;
-background:linear-gradient(135deg,#D4AF37,#FBF5B7,#B8860B);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
+        /* --- Chatbot Window --- */
+        .chat-window {
+            position: fixed; bottom: 190px; right: 30px; width: 380px; height: 600px;
+            background: #0a0a0a; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3);
+            display: none; flex-direction: column; z-index: 10001; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+        .chat-header { background: #000; padding: 15px 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 13px; scroll-behavior: smooth; }
+        
+        .msg-bot { background: #1a1a1a; padding: 12px; border-radius: 12px 12px 12px 0; align-self: flex-start; max-width: 85%; border: 1px solid #222; }
+        .msg-user { background: var(--gold); color: #000; padding: 12px; border-radius: 12px 12px 0 12px; align-self: flex-end; max-width: 85%; font-weight: 600; }
 
-nav ul{
-display:flex;
-gap:25px;
-list-style:none;
-}
+        .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .opt-btn { background: rgba(212,175,55,0.05); border: 1px solid var(--gold); color: var(--gold); padding: 8px; border-radius: 8px; cursor: pointer; font-size: 11px; transition: 0.3s; text-align: center; }
+        .opt-btn:hover { background: var(--gold); color: #000; }
 
-nav ul li a{
-text-decoration:none;
-color:#fff;
-transition:0.3s;
-font-size:14px;
-}
-
-nav ul li a:hover{
-color:#D4AF37;
-}
-
-/* ===== HERO ===== */
-.hero{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:0 10%;
-background:
-linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.85)),
-url('https://images.unsplash.com/photo-1610309995544-7f15456c8052?q=80&w=1920&auto=format&fit=crop');
-background-size:cover;
-background-position:center;
-}
-
-.hero-content h1{
-font-size:75px;
-line-height:1.1;
-font-family:'Playfair Display',serif;
-background:linear-gradient(135deg,#D4AF37,#FBF5B7,#B8860B);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:20px;
-}
-
-.hero-content p{
-max-width:800px;
-margin:auto;
-line-height:1.8;
-color:#ddd;
-font-size:17px;
-}
-
-.hero-btns{
-margin-top:35px;
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.gold-btn{
-padding:15px 35px;
-border:none;
-background:linear-gradient(135deg,#D4AF37,#FBF5B7,#B8860B);
-color:#000;
-font-weight:700;
-cursor:pointer;
-transition:0.4s;
-clip-path:polygon(10% 0,100% 0,90% 100%,0% 100%);
-}
-
-.gold-btn:hover{
-transform:scale(1.05);
-}
-
-.outline-btn{
-padding:15px 35px;
-border:1px solid #D4AF37;
-background:transparent;
-color:#D4AF37;
-cursor:pointer;
-}
-
-section{
-padding:100px 8%;
-}
-
-.section-title{
-text-align:center;
-margin-bottom:60px;
-}
-
-.section-title h2{
-font-size:50px;
-font-family:'Playfair Display',serif;
-background:linear-gradient(135deg,#D4AF37,#FBF5B7,#B8860B);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:15px;
-}
-
-.section-title p{
-color:#aaa;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-.card{
-background:#111;
-padding:35px;
-border:1px solid rgba(212,175,55,0.2);
-transition:0.4s;
-}
-
-.card:hover{
-transform:translateY(-10px);
-border-color:#D4AF37;
-box-shadow:0 15px 40px rgba(212,175,55,0.15);
-}
-
-.card h3{
-color:#D4AF37;
-margin-bottom:15px;
-font-size:24px;
-}
-
-.card p{
-color:#bbb;
-line-height:1.8;
-font-size:14px;
-margin-bottom:20px;
-}
-
-.card button{
-padding:12px 25px;
-border:none;
-background:#D4AF37;
-font-weight:700;
-cursor:pointer;
-}
-
-.doctor-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:25px;
-}
-
-.doctor-card{
-background:#111;
-padding:35px;
-text-align:center;
-border:1px solid rgba(212,175,55,0.2);
-}
-
-.doctor-card h3{
-color:#D4AF37;
-margin-bottom:10px;
-}
-
-.doctor-card p{
-color:#bbb;
-line-height:1.7;
-}
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
-}
-
-.gallery img{
-width:100%;
-height:320px;
-object-fit:cover;
-border-radius:10px;
-transition:0.4s;
-}
-
-.gallery img:hover{
-transform:scale(1.03);
-}
-
-.booking-form{
-max-width:700px;
-margin:auto;
-background:#111;
-padding:40px;
-border:1px solid rgba(212,175,55,0.2);
-}
-
-.booking-form input,
-.booking-form select,
-.booking-form textarea{
-width:100%;
-padding:15px;
-margin-bottom:20px;
-background:#1a1a1a;
-border:none;
-color:#fff;
-}
-
-.booking-form button{
-width:100%;
-padding:15px;
-border:none;
-background:linear-gradient(135deg,#D4AF37,#FBF5B7,#B8860B);
-font-weight:700;
-cursor:pointer;
-}
-
-.contact-box{
-background:#111;
-padding:40px;
-line-height:2;
-border:1px solid rgba(212,175,55,0.2);
-text-align:center;
-}
-
-.contact-box h3{
-color:#D4AF37;
-margin-bottom:20px;
-}
-
-.chatbot{
-position:fixed;
-right:20px;
-bottom:20px;
-width:360px;
-background:#111;
-border:1px solid #D4AF37;
-display:none;
-flex-direction:column;
-border-radius:12px;
-overflow:hidden;
-z-index:9999;
-}
-
-.chat-header{
-background:#D4AF37;
-color:#000;
-padding:15px;
-font-weight:700;
-}
-
-.chat-body{
-height:350px;
-overflow-y:auto;
-padding:15px;
-}
-
-.msg{
-padding:12px;
-margin-bottom:15px;
-border-radius:8px;
-line-height:1.7;
-}
-
-.bot{
-background:#1b1b1b;
-}
-
-.user{
-background:#333;
-text-align:right;
-}
-
-.chat-input{
-display:flex;
-}
-
-.chat-input input{
-flex:1;
-padding:15px;
-border:none;
-background:#1a1a1a;
-color:#fff;
-}
-
-.chat-input button{
-width:80px;
-border:none;
-background:#D4AF37;
-cursor:pointer;
-font-weight:700;
-}
-
-.chat-open{
-position:fixed;
-right:20px;
-bottom:20px;
-width:60px;
-height:60px;
-border-radius:50%;
-border:none;
-background:#D4AF37;
-font-size:28px;
-cursor:pointer;
-z-index:999;
-}
-
-.whatsapp{
-position:fixed;
-left:20px;
-bottom:20px;
-width:60px;
-height:60px;
-border-radius:50%;
-background:#25D366;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:30px;
-text-decoration:none;
-color:#fff;
-z-index:999;
-}
-
-footer{
-padding:50px 8%;
-background:#000;
-text-align:center;
-border-top:1px solid rgba(212,175,55,0.2);
-}
-
-footer h3{
-color:#D4AF37;
-margin-bottom:15px;
-}
-
-@media(max-width:768px){
-.hero-content h1{ font-size:48px; }
-nav ul{ display:none; }
-.section-title h2{ font-size:36px; }
-.chatbot{ width:92%; right:4%; }
-}
-</style>
+        .chat-footer { background: #000; padding: 15px; border-top: 1px solid #222; }
+        .chat-input { display: flex; gap: 10px; align-items: center; }
+        .chat-input input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; outline: none; }
+        
+        .cam-label { color: var(--gold); font-size: 20px; cursor: pointer; }
+        #fileInput { display: none; }
+        #imgPreview { display: none; width: 40px; height: 40px; border-radius: 5px; border: 1px solid var(--gold); margin-bottom: 5px; object-fit: cover; }
+    </style>
 </head>
-
 <body>
 
-<!-- ===== NAV (FIXED LINKS) ===== -->
-<nav>
-<div class="logo">Yuva Rejuvenation</div>
-<ul>
-    <!-- Yahan index.html lagaya hai taaki home page par ja sakein -->
-    <li><a href="index.html">Home</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#doctors">Doctors</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#booking">Booking</a></li>
-    <li><a href="#contact">Contact</a></li>
-</ul>
-</nav>
+<header>
+    <a href="index.html" class="logo">YUVA <span>REJUVENATION</span></a>
+    <nav><a href="index.html" style="color:#fff; text-decoration:none; font-size:12px; letter-spacing:1px;">HOME</a></nav>
+</header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-<div class="hero-content">
-<h1>Luxury Skin & Hair Rejuvenation Clinic</h1>
-<p>Advanced dermatology laser aesthetics anti-aging and premium skincare treatments with world-class care and modern technology.</p>
-<div class="hero-btns">
-<button class="gold-btn" onclick="scrollBooking()">Book Appointment</button>
-<button class="outline-btn" onclick="openChat()">AI Consultation</button>
-</div>
-</div>
+<section class="hero">
+    <h1>Our Luxury Treatments</h1>
 </section>
 
-<!-- ===== SERVICES ===== -->
-<section id="services">
-<div class="section-title">
-<h2>Premium Treatments</h2>
-<p>Luxury skincare and advanced dermatology procedures.</p>
+<div class="service-container">
+    <div class="service-card"><i class="fas fa-magic"></i><h3>Medi Facials</h3><p>Hydra Facial, Carbon Peel & Meso Glow for radiant skin.</p><button class="btn-outline" onclick="botSelect('facials')">Enquire Now</button></div>
+    <div class="service-card"><i class="fas fa-bolt"></i><h3>RF & Laser</h3><p>Morpheus 8 (MNRF) and CO2 Laser for scars & tightening.</p><button class="btn-outline" onclick="botSelect('laser')">Enquire Now</button></div>
+    <div class="service-card"><i class="fas fa-feather"></i><h3>Hair Therapy</h3><p>PRP, GFC and Hydra Keravive for hair restoration.</p><button class="btn-outline" onclick="botSelect('hair')">Enquire Now</button></div>
+    <div class="service-card"><i class="fas fa-syringe"></i><h3>Anti-Aging</h3><p>Botox, Fillers and Thread Lifts for youthful skin.</p><button class="btn-outline" onclick="botSelect('aging')">Enquire Now</button></div>
+    <div class="service-card"><i class="fas fa-vial"></i><h3>Wellness Drips</h3><p>IV Vitamin Drips and Detox Infusions.</p><button class="btn-outline" onclick="botSelect('drips')">Enquire Now</button></div>
+    <div class="service-card"><i class="fas fa-stethoscope"></i><h3>Personalised</h3><p>Expert consultation and customized skin analysis.</p><button class="btn-outline" onclick="botSelect('doctors')">Enquire Now</button></div>
 </div>
-<div class="grid">
-<div class="card">
-<h3>Hydra Facial</h3>
-<p>Deep cleansing hydration glow enhancement and pore purification treatment.</p>
-<button onclick="serviceInfo('Hydra Facial')">Explore</button>
-</div>
-<div class="card">
-<h3>Laser Hair Removal</h3>
-<p>Advanced painless laser hair reduction technology.</p>
-<button onclick="serviceInfo('Laser Hair Removal')">Explore</button>
-</div>
-<div class="card">
-<h3>PRP Hair Therapy</h3>
-<p>Hair restoration and scalp rejuvenation using PRP growth factors.</p>
-<button onclick="serviceInfo('PRP Hair Therapy')">Explore</button>
-</div>
-<div class="card">
-<h3>Anti Aging</h3>
-<p>Botox fillers skin tightening and collagen stimulation procedures.</p>
-<button onclick="serviceInfo('Anti Aging')">Explore</button>
-</div>
-<div class="card">
-<h3>Carbon Peel</h3>
-<p>Hollywood laser peel for acne oil control and instant glow.</p>
-<button onclick="serviceInfo('Carbon Peel')">Explore</button>
-</div>
-<div class="card">
-<h3>HIFU Facelift</h3>
-<p>Non surgical facelift and jawline contouring treatment.</p>
-<button onclick="serviceInfo('HIFU Facelift')">Explore</button>
-</div>
-</div>
-</section>
 
-<!-- Sections remain the same as your original file -->
-<section id="doctors">
-<div class="section-title">
-<h2>Meet Our Experts</h2>
-<p>Experienced aesthetic and dermatology specialists.</p>
-</div>
-<div class="doctor-grid">
-<div class="doctor-card">
-<h3>Dr. Kundanika Singh</h3>
-<p>MD Dermatology <br> Aesthetic Medicine & Laser Specialist <br> 10+ Years Experience</p>
-</div>
-<div class="doctor-card">
-<h3>Dr. Pragya Mishra</h3>
-<p>Advanced Skin & Laser Treatments Specialist <br> Luxury Skin Rejuvenation Expert</p>
-</div>
-</div>
-</section>
+<a href="https://wa.me/917388868708" class="wp-btn"><i class="fab fa-whatsapp"></i></a>
+<div class="ai-chat-btn" onclick="toggleChat()"><i class="fas fa-robot"></i></div>
 
-<section id="gallery">
-<div class="section-title">
-<h2>Clinic Gallery</h2>
-<p>Luxury treatment environment and advanced technology.</p>
-</div>
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop">
-<img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1200&auto=format&fit=crop">
-<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
-</div>
-</section>
-
-<section id="booking">
-<div class="section-title">
-<h2>Book Appointment</h2>
-<p>Reserve your premium consultation today.</p>
-</div>
-<div class="booking-form">
-<input type="text" placeholder="Full Name">
-<input type="tel" placeholder="Phone Number">
-<input type="email" placeholder="Email Address">
-<select>
-<option>Select Treatment</option>
-<option>Hydra Facial</option>
-<option>Laser Hair Removal</option>
-<option>PRP Hair Therapy</option>
-<option>Anti Aging</option>
-</select>
-<input type="date">
-<textarea rows="5" placeholder="Additional Notes"></textarea>
-<button onclick="bookingSuccess()">Confirm Booking</button>
-</div>
-</section>
-
-<section id="contact">
-<div class="section-title">
-<h2>Contact Us</h2>
-<p>Luxury skincare clinic in Lucknow.</p>
-</div>
-<div class="contact-box">
-<h3>Yuva Rejuvenation Clinic</h3>
-📍 SP-1, Alkapuri, Sector C, Aliganj Main Road, Ekta Vihar, Chandralok, Lucknow, Uttar Pradesh 226024<br><br>
-📞 +91 7388868708<br><br>
-🕒 Monday – Saturday : 10 AM – 7 PM<br><br>
-🌐 www.yuvaskinrejuvenation.com
-</div>
-</section>
-
-<footer>
-<h3>Yuva Rejuvenation</h3>
-<p>Luxury Skin Hair & Laser Clinic</p>
-</footer>
-
-<a href="https://wa.me/917388868708" class="whatsapp">💬</a>
-<button class="chat-open" onclick="openChat()">🤖</button>
-
-<div class="chatbot" id="chatbot">
-<div class="chat-header">Yuva AI Assistant</div>
-<div class="chat-body" id="chatBody">
-<div class="msg bot">Hello 👋 Welcome to Yuva Rejuvenation Clinic. Ask about treatments pricing booking or skincare.</div>
-</div>
-<div class="chat-input">
-<input type="text" id="userInput" placeholder="Type your message...">
-<button onclick="sendMessage()">Send</button>
-</div>
+<div class="chat-window" id="chatWin">
+    <div class="chat-header">
+        <h4 style="color:var(--gold); font-family: 'Playfair Display';">Yuva Smart AI</h4>
+        <i class="fas fa-times" onclick="toggleChat()" style="cursor:pointer; color:#666;"></i>
+    </div>
+    <div class="chat-body" id="chatFeed"></div>
+    <div class="chat-footer">
+        <img id="imgPreview" src="">
+        <div class="chat-input">
+            <label for="fileInput" class="cam-label"><i class="fas fa-camera"></i></label>
+            <input type="file" id="fileInput" accept="image/*" onchange="previewImg()">
+            <input type="text" id="userInput" placeholder="Ask about price or upload photo..." onkeypress="if(event.key==='Enter') userSend()">
+            <button onclick="userSend()" style="background:var(--gold); border:none; padding:10px; border-radius:8px; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 </div>
 
 <script>
-function openChat(){ document.getElementById("chatbot").style.display="flex"; }
-function bookingSuccess(){ alert("Appointment Booked Successfully!"); }
-function scrollBooking(){ document.getElementById("booking").scrollIntoView({ behavior:"smooth" }); }
+    const feed = document.getElementById('chatFeed');
+    const fInp = document.getElementById('fileInput');
+    let chatState = { step: "idle", name: "", service: "" };
 
-function serviceInfo(service){
-openChat();
-const body=document.getElementById("chatBody");
-body.innerHTML+=`<div class="msg user">Tell me about ${service}</div>`;
-let reply="";
-if(service==="Hydra Facial"){ reply="Hydra Facial deeply cleanses hydrates and brightens the skin using advanced vortex technology."; }
-else if(service==="Laser Hair Removal"){ reply="Laser Hair Removal safely reduces unwanted hair permanently with painless technology."; }
-else if(service==="PRP Hair Therapy"){ reply="PRP Hair Therapy stimulates natural hair growth and reduces hair fall."; }
-else if(service==="Anti Aging"){ reply="Anti-aging procedures reduce wrinkles fine lines and improve skin firmness."; }
-else if(service==="Carbon Peel"){ reply="Carbon Peel controls oil acne pigmentation and gives instant Hollywood glow."; }
-else if(service==="HIFU Facelift"){ reply="HIFU facelift lifts and tightens skin naturally without surgery."; }
-setTimeout(()=>{
-body.innerHTML+=`<div class="msg bot">${reply}</div>`;
-body.scrollTop=body.scrollHeight;
-},500);
-}
+    const deepKnowledge = {
+        "facials": "💎 <b>Medi Facials:</b> Hydra Facial, Meso Glow, Carbon Peel, aur Aqua Gold. Ye treatments skin brightening aur health ke liye best hain.<br>💰 Price starts ₹2,999.",
+        "laser": "⚡ <b>RF & Laser:</b> Morpheus 8 (MNRF) scar management ke liye aur CO2 Laser skin resurfacing ke liye use hota hai.",
+        "hair": "💇 <b>Hair Restoration:</b> GFC, PRP aur Hydra Keravive treatments hair fall control aur density ke liye best hain.",
+        "aging": "⏳ <b>Anti-Aging:</b> Botox, Fillers aur Thread Lift se sagging skin aur wrinkles fix kiye jaate hain.",
+        "drips": "🧪 <b>Wellness Drips:</b> Detox, Immunity aur Skin Brightening Vitamin Drips directly bloodstream mein infusion se instant results dete hain.",
+        "doctors": "👨‍⚕️ <b>Our Experts:</b> Dr. Kundanika Singh aur Dr. Pragya Mishra advanced aesthetic treatments lead karti hain.",
+        "address": "📍 <b>Clinic Address:</b> SP-1, Alkapuri, Aliganj, Lucknow.<br>🔗 <a href='https://yuvaskinrejuvenation.com/' target='_blank' style='color:var(--gold)'>Visit Website</a>"
+    };
 
-function sendMessage(){
-const input=document.getElementById("userInput");
-const text=input.value.trim();
-if(text==="") return;
-const body=document.getElementById("chatBody");
-body.innerHTML+=`<div class="msg user">${text}</div>`;
-let reply="";
-const msg=text.toLowerCase();
-if(msg.includes("price")){ reply="Treatment prices start from ₹1999 depending on treatment type."; }
-else if(msg.includes("hydra")){ reply="Hydra Facial gives instant glow deep cleansing and hydration."; }
-else if(msg.includes("laser")){ reply="We provide advanced laser treatments for hair removal pigmentation and resurfacing."; }
-else if(msg.includes("hair")){ reply="We provide PRP Hair Therapy Mesotherapy and Hair Laser procedures."; }
-else if(msg.includes("booking")){ reply="You can easily book your appointment from the booking section."; }
-else{ reply="Our clinic team will contact you shortly for consultation."; }
-setTimeout(()=>{
-body.innerHTML+=`<div class="msg bot">${reply}</div>`;
-body.scrollTop=body.scrollHeight;
-},500);
-input.value="";
-}
+    function toggleChat() {
+        const win = document.getElementById('chatWin');
+        win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
+        if(win.style.display === 'flex' && feed.innerHTML === "") botGreeting();
+    }
+
+    function botGreeting() {
+        addBotMsg("✨ Welcome to <b>Yuva Smart AI</b>. Main aapke treatments aur skin concerns ko analyze kar sakta hoon.<br><br>Aap apni problem <b>Likh sakte hain</b>, 📷 <b>Photo upload</b> kar sakte hain ya niche diye gaye <b>Options</b> chun sakte hain.");
+        addOptions([
+            {t: "💎 All Services", v: "services"},
+            {t: "👨‍⚕️ Doctors", v: "doctors"},
+            {t: "📍 Address", v: "address"},
+            {t: "📅 Book Now", v: "book"}
+        ]);
+    }
+
+    function botSelect(s) {
+        if(document.getElementById('chatWin').style.display !== 'flex') toggleChat();
+        handleLogic(s);
+    }
+
+    function previewImg() {
+        const file = fInp.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => { 
+                document.getElementById('imgPreview').src = e.target.result;
+                document.getElementById('imgPreview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function addBotMsg(t) {
+        const d = document.createElement('div'); d.className = 'msg-bot'; d.innerHTML = t;
+        feed.appendChild(d); feed.scrollTop = feed.scrollHeight;
+    }
+
+    function addUserMsg(t) {
+        const d = document.createElement('div'); d.className = 'msg-user'; d.innerText = t;
+        feed.appendChild(d); feed.scrollTop = feed.scrollHeight;
+    }
+
+    function addOptions(opts) {
+        const g = document.createElement('div'); g.className = 'opt-grid';
+        opts.forEach(o => {
+            const b = document.createElement('button'); b.className = 'opt-btn'; b.innerText = o.t;
+            b.onclick = () => handleLogic(o.v);
+            g.appendChild(b);
+        });
+        feed.appendChild(g); feed.scrollTop = feed.scrollHeight;
+    }
+
+    function handleLogic(val) {
+        addUserMsg(val);
+        setTimeout(() => {
+            let low = val.toLowerCase();
+            if(low === "services") {
+                addBotMsg("Please choose a treatment category for deep details:");
+                addOptions([{t:"Medi Facials", v:"facials"}, {t:"Laser & RF", v:"laser"}, {t:"Hair PRP", v:"hair"}, {t:"Anti-Aging", v:"aging"}]);
+            } else if(deepKnowledge[low]) {
+                addBotMsg(deepKnowledge[low]);
+                addOptions([{t: "📅 Book Consultation", v: "book"}, {t: "🔙 Main Menu", v: "services"}]);
+            } else if(low === "book") {
+                addBotMsg("Shandaar! Booking ke liye please apna **Poora Naam** batayein:");
+                chatState.step = "name";
+            } else {
+                addBotMsg("Analyzing clinical database... Aapki problem ke liye <b>Yuva Personalised Treatment Plan</b> best rahega. Kya aap consultation book karna chahte hain?");
+                addOptions([{t: "📍 Address", v: "address"}, {t: "📅 Book Now", v: "book"}]);
+            }
+        }, 600);
+    }
+
+    function userSend() {
+        const inp = document.getElementById('userInput');
+        const val = inp.value.trim();
+        const hasImg = fInp.files.length > 0;
+
+        if(!val && !hasImg) return;
+
+        if(hasImg) {
+            addUserMsg("Uploaded photo for analysis.");
+            document.getElementById('imgPreview').style.display = 'none';
+            fInp.value = "";
+            setTimeout(() => {
+                addBotMsg("🔍 <b>AI Skin Scan Complete:</b><br>Aapki photo mein <b>Acne/Pigmentation</b> ke signs dikh rahe hain. Iske liye humare <b>Q-Switch Laser</b> ya <b>Morpheus 8</b> ka trial suggested hai.");
+                addOptions([{t: "📅 Get Doctor Slot", v: "book"}]);
+            }, 1500);
+        } else {
+            addUserMsg(val);
+            inp.value = "";
+            if(chatState.step === "name") {
+                chatState.name = val;
+                addBotMsg(`Shukriya ${val}! Ab apna **Mobile Number** dein:`);
+                chatState.step = "phone";
+            } else if(chatState.step === "phone") {
+                addBotMsg("Perfect! Niche click karke WhatsApp par slot confirm karein.");
+                const msg = encodeURIComponent(`Hi, I am ${chatState.name}. I need an appointment for ${chatState.service || 'Skin Analysis'}.`);
+                addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:#fff; font-weight:bold;" onclick="window.open('https://wa.me/917388868708?text=${msg}')">CONFIRM ON WHATSAPP</button>`);
+                chatState.step = "idle";
+            } else {
+                handleLogic(val);
+            }
+        }
+    }
 </script>
 
 </body>
