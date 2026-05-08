@@ -157,11 +157,8 @@
         .chat-input-area { background: #000; border-top: 1px solid #222; padding: 12px; border-radius: 0 0 20px 20px; }
         .chat-input { display: flex; gap: 8px; align-items: center; }
         .chat-input input { flex: 1; padding: 10px; background: #1b1b1b; border: none; color: #fff; border-radius: 5px; outline: none; }
-        .chat-input button { background: var(--gold); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .chat-input button { background: var(--gold); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; color: #000; }
         
-        .cam-btn { color: var(--gold); font-size: 20px; cursor: pointer; margin-right: 5px; }
-        #aiFile { display: none; }
-        #imgPreview { display: none; width: 45px; height: 45px; border-radius: 5px; border: 1px solid var(--gold); margin-bottom: 8px; object-fit: cover; }
         .typing { font-size: 11px; color: var(--gold); padding: 5px 15px; display: none; font-style: italic; }
     </style>
 </head>
@@ -228,11 +225,8 @@
                 <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
                 <button class="lang-btn" id="btn-hi" onclick="setLang('hi')">हिंदी</button>
             </div>
-            <img id="imgPreview" src="">
             <div class="chat-input">
-                <label for="aiFile" class="cam-btn"><i class="fas fa-camera"></i></label>
-                <input type="file" id="aiFile" accept="image/*" onchange="previewFile()">
-                <input type="text" id="chatInput" placeholder="Type or upload photo..." onkeypress="if(event.key==='Enter') sendMsg()">
+                <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMsg()">
                 <button onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -250,29 +244,23 @@
 
         const translations = {
             en: {
-                welcome: "✨ Welcome to Yuva!<br>I am your AI Assistant. How can I help you today?",
-                deepAi: "🔍 Deep AI Analysis (Photo & Text)",
+                welcome: "✨ Welcome to Yuva!<br>I am your Assistant. How can I help you today?",
                 allServices: "💎 All Services",
                 bookSlot: "📅 Book Slot",
                 address: "📍 Address",
                 chooseDr: "👨‍⚕️ Choose Dr.",
-                scanActive: "📸 <b>Skin Analysis Mode Active:</b><br>Please send a clear photo of your skin concern using the camera icon below.",
                 typing: "Assistant is typing...",
-                placeholder: "Type or upload photo...",
-                invalidImg: "⚠️ <b>Invalid Image:</b> Photo is not clear. Please send a sharp, close-up photo.",
+                placeholder: "Type your message...",
                 treatmentNote: "⚠️ <b>Note:</b> For better diagnosis, please book an appointment with our doctor. Your health is our priority."
             },
             hi: {
-                welcome: "✨ Yuva में आपका स्वागत है!<br>मैं आपका AI सहायक हूँ। मैं आज आपकी क्या मदद कर सकता हूँ?",
-                deepAi: "🔍 डीप AI विश्लेषण (फोटो और टेक्स्ट)",
+                welcome: "✨ Yuva में आपका स्वागत है!<br>मैं आपका सहायक हूँ। मैं आज आपकी क्या मदद कर सकता हूँ?",
                 allServices: "💎 सभी सेवाएँ",
                 bookSlot: "📅 स्लॉट बुक करें",
                 address: "📍 पता",
                 chooseDr: "👨‍⚕️ डॉक्टर चुनें",
-                scanActive: "📸 <b>स्किन विश्लेषण मोड सक्रिय:</b><br>नीचे दिए गए कैमरा आइकन का उपयोग करके अपनी त्वचा की एक स्पष्ट फोटो भेजें।",
                 typing: "सहायक लिख रहा है...",
-                placeholder: "लिखें या फोटो अपलोड करें...",
-                invalidImg: "⚠️ <b>गलत इमेज:</b> फोटो साफ नहीं है। कृपया सही विश्लेषण के लिए एक स्पष्ट और क्लोज-अप फोटो भेजें।",
+                placeholder: "अपना संदेश लिखें...",
                 treatmentNote: "⚠️ <b>नोट:</b> बेहतर जानकारी और सही इलाज के लिए, कृपया डॉक्टर से अपॉइंटमेंट बुक करें। आपकी सेहत हमारी प्राथमिकता है।"
             }
         };
@@ -321,28 +309,12 @@
             showTyping(() => {
                 addBotMsg(`${t.welcome}
                 <div class="options-grid">
-                    <button class="opt-btn" style="grid-column: span 2; background: var(--gold); color: #000; font-weight: bold;" onclick="triggerAI()">${t.deepAi}</button>
                     <button class="opt-btn" onclick="showServices()">${t.allServices}</button>
                     <button class="opt-btn" onclick="askBooking()">${t.bookSlot}</button>
                     <button class="opt-btn" onclick="autoQuery('📍 Address')">${t.address}</button>
                     <button class="opt-btn" onclick="showDoctors()">${t.chooseDr}</button>
                 </div>`);
             });
-        }
-
-        function triggerAI() {
-            addUserMsg(translations[chatState.lang].deepAi);
-            showTyping(() => { addBotMsg(translations[chatState.lang].scanActive); });
-        }
-
-        function previewFile() {
-            const file = document.getElementById('aiFile').files[0];
-            const prev = document.getElementById('imgPreview');
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = (e) => { prev.src = e.target.result; prev.style.display = 'block'; };
-                reader.readAsDataURL(file);
-            }
         }
 
         function showTyping(callback) {
@@ -366,26 +338,10 @@
 
         function sendMsg() {
             const input = document.getElementById('chatInput');
-            const fileInp = document.getElementById('aiFile');
             const val = input.value.trim();
             const t = translations[chatState.lang];
 
-            if (!val && fileInp.files.length === 0) return;
-
-            if(fileInp.files.length > 0) {
-                addUserMsg("📸 Photo Uploaded");
-                document.getElementById('imgPreview').style.display = 'none';
-                fileInp.value = "";
-                showTyping(() => {
-                    addBotMsg("🔍 Scanning for concerns...");
-                    setTimeout(() => {
-                        // AI RESULT MESSAGE ADDED HERE
-                        addBotMsg(`🔍 <b>AI Analysis Result:</b><br><br>Scan ke mutabik aapki skin ko <b>Deep Hydration</b> aur <b>Pigmentation Correction</b> ki zarurat hai. Iske liye <b>Hydra Facial</b> aur <b>Laser Toning</b> best options hain.<br><br>Kya aap details dekhna chahenge? ${t.treatmentNote}`);
-                        addOptions([{t:"Details Dekhein", v:"Medi Facials"}, {t:"Book Doctor", v:"book"}]);
-                    }, 1500);
-                });
-                return;
-            }
+            if (!val) return;
 
             addUserMsg(val); input.value = "";
             const low = val.toLowerCase();
@@ -399,7 +355,7 @@
                 chatState.userPhone = val;
                 showTyping(() => {
                     addBotMsg("Details saved. Connect on WhatsApp to confirm.");
-                    const msg = encodeURIComponent(`Hi Yuva, I am ${chatState.userName}. Phone: ${val}. Need consultation.`);
+                    const msg = encodeURIComponent(`Hi Yuva!\nName: ${chatState.userName}\nPhone: ${val}\nTreatment: ${chatState.selectedService}\nDoctor: ${chatState.selectedDr}\n\nPlease confirm my appointment.`);
                     addBotMsg(`<button class="opt-btn" style="width:100%; background:#25d366; color:white;" onclick="window.open('https://wa.me/917388868708?text=${msg}')">Confirm on WhatsApp</button>`);
                     chatState.step = "idle";
                 });
